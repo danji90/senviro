@@ -1,5 +1,6 @@
 import pika
 import requests
+import json
 import sys
 
 # FROST-Server baseUrl
@@ -18,8 +19,6 @@ channel.exchange_declare(exchange='amq.topic',    # amq.topic
 result = channel.queue_declare(exclusive=True)
 queue_name = result.method.queue
 
-print('Suxess!')
-
 binding_keys = sys.argv[1:]
 
 if not binding_keys:
@@ -34,18 +33,32 @@ for binding_key in binding_keys:
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
+def thingHandler():
+    things = requests.get(baseUrl + '/' + 'Things').json()
 
-things =  requests.get(baseUrl + '/' + 'Things')
-obsProp = requests.get(baseUrl + '/' + 'ObservedProperties')
-print(obsProp.json())
+
+def obsPropHandler(messagePropString):
+    obsProp = requests.get(baseUrl + '/' + 'ObservedProperties').json()
+    if obsProp['value'] == []:
+        requests.post(baseUrl + '/' + 'ObservedProperties', json = {"name": messagePropString, "description": "", "definition": ""})
+        print(messagePropString)
+    else:
+        props = []
+        for prop in obsProp['value']:
+            props.append(prop['name'])
+
+        if messagePropString not in props:
+            requests.post(baseUrl + '/' + 'ObservedProperties', json = {"name": messagePropString, "description": "", "definition": ""})
 
 def callback(ch, method, properties, body):
+
+    rest, thingName, obsPropName = str(method.routing_key).rsplit('.', 2)
+
+    obsPropHandler(obsPropName)
+
     print(" [x] %r:%r" % (method.routing_key, body))
-    obsPropName, thingName, rest = str(method.routing_key).rsplit('.', 2)
-    print('thing: ', thingName, 'observable property: ', obsPropName)
+    print("obsPropName: ", obsPropName)
 
-
-#    if
 #
 #     # add this for Senviro for message acknowledgement
 #     # def callback(ch, method, properties, body):
