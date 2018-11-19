@@ -39,16 +39,18 @@ def thingHandler():
 
 def obsPropHandler(messagePropString):
     obsProp = requests.get(baseUrl + '/' + 'ObservedProperties').json()
-    if obsProp['value'] == []:
-        requests.post(baseUrl + '/' + 'ObservedProperties', json = {"name": messagePropString, "description": "", "definition": ""})
-        print(messagePropString)
-    else:
-        props = []
-        for prop in obsProp['value']:
-            props.append(prop['name'])
+    props = []
+    for prop in obsProp['value']:
+        props.append(prop['name'])
 
-        if messagePropString not in props:
-            requests.post(baseUrl + '/' + 'ObservedProperties', json = {"name": messagePropString, "description": "", "definition": ""})
+    if messagePropString not in props:
+        try:
+            req = requests.post(baseUrl + '/' + 'ObservedProperties', json = {"name": messagePropString, "description": "", "definition": ""})
+            req.raise_for_status()
+            print(req, "####", messagePropString, " inserted")
+        except:
+            print(req, "####", "Could not insert ", messagePropString)
+
 
 def callback(ch, method, properties, body):
 
