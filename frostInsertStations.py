@@ -7,7 +7,10 @@ sensorData = [{"description":"Photon WeatherShield Atmospheric Sensors","name":"
 
 obsPropData = [{"name":"AirTemperature","definition":"http://www.senviro.uji.es","description":"Air temperature readings in °C"},{"name":"Humidity","definition":"http://www.senviro.uji.es","description":"Relative air humidity readings in %"},{"name":"AtmosphericPressure","definition":"http://www.senviro.uji.es","description":"Atmospheric pressure readings in Pascal"},{"name":"Precipitation","definition":"http://www.senviro.uji.es","description":"Precipitation readings in mm"},{"name":"WindDirection","definition":"http://www.senviro.uji.es","description":"Wind direction in integer values (0-7)"},{"name":"WindSpeed","definition":"http://www.senviro.uji.es","description":"Wind speed readings in m/s"},{"name":"SoilTemperature","definition":"http://www.senviro.uji.es","description":"Soil temperature readings in °C"},{"name":"SoilHumidity","definition":"http://www.senviro.uji.es","description":"Soil moisture readings in m^3/m^3"},{"name":"Battery","definition":"http://www.senviro.uji.es","description":"Battery readings in %"}]
 
-thingsData = [{"name": "4e0022000251353337353037","description": "Senviro monitoring station with ID: 4e0022000251353337353037","encodingType": "application/vnd.geo+json","location": {"name":"espaitec2_1","description":"Universitat Jaum I, EPAITEC 2", "type": "Point","coordinates": [-0.026397, 40.141384]}}]
+with open('things.json') as json_data:
+    thingsData = json.load(json_data)
+
+print(thingsData)
 
 # FROST-Server baseUrl
 baseUrl = "http://elcano.init.uji.es:8082/FROST-Server/v1.0"
