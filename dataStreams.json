@@ -1,0 +1,378 @@
+{
+  "name": "Air Temperature - Station 4e0022000251353337353037",
+  "description": "Datastream for recording air temperature",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Degree Celsius",
+    "symbol": "°C",
+    "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
+  },
+  "ObservedProperty": {
+    "name": "Air Temperature",
+    "description": "The degree or intensity of heat present in the area",
+    "definition": "http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#AreaTemperature"
+  },
+  "Sensor": {
+    "name": "PhotonWeatherShield",
+    "description": "SparkFun Photon Weather Shield, easy to use add-on board that grants you access to barometric pressure, relative humidity, and temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://www.sparkfun.com/products/13630"
+  }
+},
+{
+  "name": "Humidity - Station 4e0022000251353337353037",
+  "description": "Datastream for recording air humidity",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Percent",
+    "symbol": "%",
+    "definition": "https://en.wikipedia.org/wiki/Relative_humidity"
+  },
+  "ObservedProperty": {
+    "name": "Humidity",
+    "description": "Ratio of the partial pressure of water vapor to the equilibrium vapor pressure of water at a given temperature",
+    "definition": "https://en.wikipedia.org/wiki/Relative_humidity"
+  },
+  "Sensor": {
+    "name": "PhotonWeatherShield",
+    "description": "SparkFun Photon Weather Shield, easy to use add-on board that grants you access to barometric pressure, relative humidity, and temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://www.sparkfun.com/products/13630"
+  }
+},
+{
+  "name": "Atmospheric Pressure - Station 4e0022000251353337353037",
+  "description": "Datastream for recording atmospheric pressure",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Pascal",
+    "symbol": "Pa",
+    "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
+  },
+  "ObservedProperty": {
+    "name": "AtmosphericPressure",
+    "description": "Pressure within the atmosphere of Earth",
+    "definition": "https://en.wikipedia.org/wiki/Atmospheric_pressure"
+  },
+  "Sensor": {
+    "name": "PhotonWeatherShield",
+    "description": "SparkFun Photon Weather Shield, easy to use add-on board that grants you access to barometric pressure, relative humidity, and temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://www.sparkfun.com/products/13630"
+  }
+},
+{
+  "name": "Precipitation - Station 4e0022000251353337353037",
+  "description": "Datastream for recording rainfall",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Millimetres",
+    "symbol": "mm",
+    "definition": "https://en.wikipedia.org/wiki/Millimetre"
+  },
+  "ObservedProperty": {
+    "name": "Precipitation",
+    "description": "Product of the condensation of atmospheric water vapor that falls under gravity",
+    "definition": "https://en.wikipedia.org/wiki/Precipitation"
+  },
+  "Sensor": {
+    "name": "Pluviometer",
+    "description": "Measures rainfall",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Rain_gauge"
+  }
+},
+{
+  "name": "Wind Direction - Station 4e0022000251353337353037",
+  "description": "Datastream for recording wind direction",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "",
+    "symbol": "",
+    "definition": "https://en.wikipedia.org/wiki/Wind_direction"
+  },
+  "ObservedProperty": {
+    "name": "WindDirection",
+    "description": "Wind direction in integer values (0-7)",
+    "definition": "https://en.wikipedia.org/wiki/Wind_speed"
+  },
+  "Sensor": {
+    "name": "Anemometer",
+    "description": "Measures wind speed and direction",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Anemometer"
+  }
+},
+{
+  "name": "Wind Speed - Station 4e0022000251353337353037",
+  "description": "Datastream for recording wind speed",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Metres per second",
+    "symbol": "m/s",
+    "definition": "https://en.wikipedia.org/wiki/Metre_per_second"
+  },
+  "ObservedProperty": {
+    "name": "WindSpeed",
+    "description": "Wind speed readings in m/s",
+    "definition": "https://en.wikipedia.org/wiki/Wind_speed"
+  },
+  "Sensor": {
+    "name": "Anemometer",
+    "description": "Measures wind speed and direction",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Anemometer"
+  }
+},
+{
+  "name": "Soil Moisture - Station 4e0022000251353337353037",
+  "description": "Datastream for recording soil moisture",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Cubic metres water per cubic metre soil",
+    "symbol": "m^3/m^3",
+    "definition": "https://en.wikipedia.org/wiki/Cubic_metre"
+  },
+  "ObservedProperty": {
+    "name": "SoilHumidity",
+    "description": "Soil moisture readings in m^3/m^3",
+    "definition": "https://en.wikipedia.org/wiki/Soil#Soil_moisture_content"
+  },
+  "Sensor": {
+    "name": "SoilMoistureSensor",
+    "description": "Measures soil moisture",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Soil_moisture_sensor"
+  }
+},
+{
+  "name": "Soil Temperature - Station 4e0022000251353337353037",
+  "description": "Datastream for recording soil temperature",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Degree Celsius",
+    "symbol": "°C",
+    "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
+  },
+  "ObservedProperty": {
+    "name": "SoilTemperature",
+    "description": "Soil temperature readings in °C",
+    "definition": "https://en.wikipedia.org/wiki/Soil#Temperature"
+  },
+  "Sensor": {
+    "name": "DS18B20",
+    "description": "Measures soil temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf"
+  }
+},
+{
+  "name": "Battery - Station 4e0022000251353337353037",
+  "description": "Datastream for recording battery status",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Percent",
+    "symbol": "%",
+    "definition": "https://en.wikipedia.org/wiki/Percentage"
+  },
+  "ObservedProperty": {
+    "name": "Battery",
+    "description": "Battery readings in %",
+    "definition": "https://en.wikipedia.org/wiki/Electric_battery"
+  },
+  "Sensor": {
+    "name": "Battery",
+    "description": "Measures soil temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Electric_battery"
+  }
+},
+{
+  "name": "Air Temperature - Station 270043001951343334363036",
+  "description": "Datastream for recording air temperature",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Degree Celsius",
+    "symbol": "°C",
+    "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
+  },
+  "ObservedProperty": {
+    "name": "Air Temperature",
+    "description": "The degree or intensity of heat present in the area",
+    "definition": "http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#AreaTemperature"
+  },
+  "Sensor": {
+    "name": "PhotonWeatherShield",
+    "description": "SparkFun Photon Weather Shield, easy to use add-on board that grants you access to barometric pressure, relative humidity, and temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://www.sparkfun.com/products/13630"
+  }
+},
+{
+  "name": "Humidity - Station 270043001951343334363036",
+  "description": "Datastream for recording air humidity",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Percent",
+    "symbol": "%",
+    "definition": "https://en.wikipedia.org/wiki/Relative_humidity"
+  },
+  "ObservedProperty": {
+    "name": "Humidity",
+    "description": "Ratio of the partial pressure of water vapor to the equilibrium vapor pressure of water at a given temperature",
+    "definition": "https://en.wikipedia.org/wiki/Relative_humidity"
+  },
+  "Sensor": {
+    "name": "PhotonWeatherShield",
+    "description": "SparkFun Photon Weather Shield, easy to use add-on board that grants you access to barometric pressure, relative humidity, and temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://www.sparkfun.com/products/13630"
+  }
+},
+{
+  "name": "Atmospheric Pressure - Station 270043001951343334363036",
+  "description": "Datastream for recording atmospheric pressure",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Pascal",
+    "symbol": "Pa",
+    "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
+  },
+  "ObservedProperty": {
+    "name": "AtmosphericPressure",
+    "description": "Pressure within the atmosphere of Earth",
+    "definition": "https://en.wikipedia.org/wiki/Atmospheric_pressure"
+  },
+  "Sensor": {
+    "name": "PhotonWeatherShield",
+    "description": "SparkFun Photon Weather Shield, easy to use add-on board that grants you access to barometric pressure, relative humidity, and temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://www.sparkfun.com/products/13630"
+  }
+},
+{
+  "name": "Precipitation - Station 270043001951343334363036",
+  "description": "Datastream for recording rainfall",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Millimetres",
+    "symbol": "mm",
+    "definition": "https://en.wikipedia.org/wiki/Millimetre"
+  },
+  "ObservedProperty": {
+    "name": "Precipitation",
+    "description": "Product of the condensation of atmospheric water vapor that falls under gravity",
+    "definition": "https://en.wikipedia.org/wiki/Precipitation"
+  },
+  "Sensor": {
+    "name": "Pluviometer",
+    "description": "Measures rainfall",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Rain_gauge"
+  }
+},
+{
+  "name": "Wind Direction - Station 270043001951343334363036",
+  "description": "Datastream for recording wind direction",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "",
+    "symbol": "",
+    "definition": "https://en.wikipedia.org/wiki/Wind_direction"
+  },
+  "ObservedProperty": {
+    "name": "WindDirection",
+    "description": "Wind direction in integer values (0-7)",
+    "definition": "https://en.wikipedia.org/wiki/Wind_speed"
+  },
+  "Sensor": {
+    "name": "Anemometer",
+    "description": "Measures wind speed and direction",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Anemometer"
+  }
+},
+{
+  "name": "Wind Speed - Station 270043001951343334363036",
+  "description": "Datastream for recording wind speed",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Metres per second",
+    "symbol": "m/s",
+    "definition": "https://en.wikipedia.org/wiki/Metre_per_second"
+  },
+  "ObservedProperty": {
+    "name": "WindSpeed",
+    "description": "Wind speed readings in m/s",
+    "definition": "https://en.wikipedia.org/wiki/Wind_speed"
+  },
+  "Sensor": {
+    "name": "Anemometer",
+    "description": "Measures wind speed and direction",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Anemometer"
+  }
+},
+{
+  "name": "Soil Moisture - Station 270043001951343334363036",
+  "description": "Datastream for recording soil moisture",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Cubic metres water per cubic metre soil",
+    "symbol": "m^3/m^3",
+    "definition": "https://en.wikipedia.org/wiki/Cubic_metre"
+  },
+  "ObservedProperty": {
+    "name": "SoilHumidity",
+    "description": "Soil moisture readings in m^3/m^3",
+    "definition": "https://en.wikipedia.org/wiki/Soil#Soil_moisture_content"
+  },
+  "Sensor": {
+    "name": "SoilMoistureSensor",
+    "description": "Measures soil moisture",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Soil_moisture_sensor"
+  }
+},
+{
+  "name": "Soil Temperature - Station 270043001951343334363036",
+  "description": "Datastream for recording soil temperature",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Degree Celsius",
+    "symbol": "°C",
+    "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
+  },
+  "ObservedProperty": {
+    "name": "SoilTemperature",
+    "description": "Soil temperature readings in °C",
+    "definition": "https://en.wikipedia.org/wiki/Soil#Temperature"
+  },
+  "Sensor": {
+    "name": "DS18B20",
+    "description": "Measures soil temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf"
+  }
+},
+{
+  "name": "Battery - Station 270043001951343334363036",
+  "description": "Datastream for recording battery status",
+  "observationType": "http://www.senviro.uji.es/",
+  "unitOfMeasurement": {
+    "name": "Percent",
+    "symbol": "%",
+    "definition": "https://en.wikipedia.org/wiki/Percentage"
+  },
+  "ObservedProperty": {
+    "name": "Battery",
+    "description": "Battery readings in %",
+    "definition": "https://en.wikipedia.org/wiki/Electric_battery"
+  },
+  "Sensor": {
+    "name": "Battery",
+    "description": "Measures soil temperature",
+    "encodingType": "application/pdf",
+    "metadata": "https://en.wikipedia.org/wiki/Electric_battery"
+  }
+}

@@ -7,6 +7,8 @@ sensorData = [{"description":"Photon WeatherShield Atmospheric Sensors","name":"
 
 obsPropData = [{"name":"AirTemperature","definition":"http://www.senviro.uji.es","description":"Air temperature readings in °C"},{"name":"Humidity","definition":"http://www.senviro.uji.es","description":"Relative air humidity readings in %"},{"name":"AtmosphericPressure","definition":"http://www.senviro.uji.es","description":"Atmospheric pressure readings in Pascal"},{"name":"Precipitation","definition":"http://www.senviro.uji.es","description":"Precipitation readings in mm"},{"name":"WindDirection","definition":"http://www.senviro.uji.es","description":"Wind direction in integer values (0-7)"},{"name":"WindSpeed","definition":"http://www.senviro.uji.es","description":"Wind speed readings in m/s"},{"name":"SoilTemperature","definition":"http://www.senviro.uji.es","description":"Soil temperature readings in °C"},{"name":"SoilHumidity","definition":"http://www.senviro.uji.es","description":"Soil moisture readings in m^3/m^3"},{"name":"Battery","definition":"http://www.senviro.uji.es","description":"Battery readings in %"}]
 
+thingsData = [{"name": "4e0022000251353337353037","description": "Senviro monitoring station with ID: 4e0022000251353337353037","encodingType": "application/vnd.geo+json","location": {"name":"espaitec2_1","description":"Universitat Jaum I, EPAITEC 2", "type": "Point","coordinates": [-0.026397, 40.141384]}}]
+
 # FROST-Server baseUrl
 baseUrl = "http://elcano.init.uji.es:8082/FROST-Server/v1.0"
 
@@ -29,6 +31,19 @@ def insertSensors(dataArray):
             except:
                 print(req, "####", "Could not insert ", i["name"] )
 
+    # While loop attempt (still gives list index out of range error, but works)
+    # i = 0
+    # while (dataArray[i]["name"] not in sens) and (i < len(dataArray)):
+    #     print(i)
+    #     print(dataArray[i])
+    #     try:
+    #         req = requests.post(url, json = dataArray[i])
+    #         req.raise_for_status()
+    #         print(req, "#### Sensor: ", dataArray[i]["name"], " inserted")
+    #     except:
+    #         print(req, "####", "Could not insert ", dataArray[i]["name"] )
+    #     i += 1
+
 def insertObsProp(dataArray):
     # Create array with present observed properties
     url = baseUrl + '/' + 'ObservedProperties'
@@ -47,14 +62,14 @@ def insertObsProp(dataArray):
             except:
                 print(req, "####", "Could not insert ", i["name"] )
 
-def insertObsProp(dataArray):
+def insertThings(dataArray):
     # Create array with present observed properties
-    url = baseUrl + '/' + 'ObservedProperties'
-    obsProp = requests.get(url).json()
-    props = []
-    for prop in obsProp['value']:
-        props.append(prop['name'])
-    print("Observed properties present :", props)
+    url = baseUrl + '/' + 'Things'
+    things = requests.get(url).json()
+    thgs = []
+    for thing in things['value']:
+        thgs.append(thing['name'])
+    print("Things present :", thgs)
 
     for i in dataArray:
         if i["name"] not in props:

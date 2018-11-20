@@ -1,0 +1,28 @@
+{
+  "name": "4e0022000251353337353037",
+  "description": "Senviro monitoring station with ID: 4e0022000251353337353037",
+  "properties": {},
+  "Locations": [{
+    "name": "vilafames_1",
+    "description": "Agricultural fields (vineyards) near Sergi's house",
+    "encodingType": "application/vnd.geo+json",
+    "location":{
+      "type": "Point",
+      "coordinates": [-0.026397, 40.141384]
+    }
+  }]
+},
+{
+  "name": "270043001951343334363036",
+  "description": "Senviro monitoring station with ID: 270043001951343334363036",
+  "properties": {},
+  "Locations": [{
+    "name": "espaitec2_1",
+    "description": "Universitat Jaume I, ESPAITEC 2",
+    "encodingType": "application/vnd.geo+json",
+    "location":{
+      "type": "Point",
+      "coordinates": [-0.061000, 40.133098]
+    }
+  }]
+}

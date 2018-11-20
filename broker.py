@@ -33,32 +33,33 @@ for binding_key in binding_keys:
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
-def thingHandler():
-    things = requests.get(baseUrl + '/' + 'Things').json()
-
-
-def obsPropHandler(messagePropString):
-    obsProp = requests.get(baseUrl + '/' + 'ObservedProperties').json()
-    props = []
-    for prop in obsProp['value']:
-        props.append(prop['name'])
-
-    if messagePropString not in props:
-        try:
-            req = requests.post(baseUrl + '/' + 'ObservedProperties', json = {"name": messagePropString, "description": "", "definition": ""})
-            req.raise_for_status()
-            print(req, "####", messagePropString, " inserted")
-        except:
-            print(req, "####", "Could not insert ", messagePropString)
+# def thingHandler():
+#     things = requests.get(baseUrl + '/' + 'Things').json()
+#
+#
+# def obsPropHandler(messagePropString):
+#     obsProp = requests.get(baseUrl + '/' + 'ObservedProperties').json()
+#     props = []
+#     for prop in obsProp['value']:
+#         props.append(prop['name'])
+#
+#     if messagePropString not in props:
+#         try:
+#             req = requests.post(baseUrl + '/' + 'ObservedProperties', json = {"name": messagePropString, "description": "", "definition": ""})
+#             req.raise_for_status()
+#             print(req, "####", messagePropString, " inserted")
+#         except:
+#             print(req, "####", "Could not insert ", messagePropString)
 
 
 def callback(ch, method, properties, body):
 
     rest, thingName, obsPropName = str(method.routing_key).rsplit('.', 2)
 
-    obsPropHandler(obsPropName)
+    # obsPropHandler(obsPropName)
 
     print(" [x] %r:%r" % (method.routing_key, body))
+    print("thingName: ", thingName)
     print("obsPropName: ", obsPropName)
 
 #
