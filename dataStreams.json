@@ -1,5 +1,5 @@
 [{
-    "name": "Air Temperature - Station 4e0022000251353337353037",
+    "name": "AirTemperature-4e0022000251353337353037",
     "description": "Datastream for recording air temperature",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -14,7 +14,7 @@
     }
   },
   {
-    "name": "Humidity - Station 4e0022000251353337353037",
+    "name": "Humidity-4e0022000251353337353037",
     "description": "Datastream for recording air humidity",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -29,7 +29,7 @@
     }
   },
   {
-    "name": "Atmospheric Pressure - Station 4e0022000251353337353037",
+    "name": "AtmosphericPressure-4e0022000251353337353037",
     "description": "Datastream for recording atmospheric pressure",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -44,7 +44,7 @@
     }
   },
   {
-    "name": "Precipitation - Station 4e0022000251353337353037",
+    "name": "Precipitation-4e0022000251353337353037",
     "description": "Datastream for recording rainfall",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -59,7 +59,7 @@
     }
   },
   {
-    "name": "Wind Direction - Station 4e0022000251353337353037",
+    "name": "WindDirection-4e0022000251353337353037",
     "description": "Datastream for recording wind direction",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -74,7 +74,7 @@
     }
   },
   {
-    "name": "Wind Speed - Station 4e0022000251353337353037",
+    "name": "WindSpeed-4e0022000251353337353037",
     "description": "Datastream for recording wind speed",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -89,7 +89,7 @@
     }
   },
   {
-    "name": "Soil Temperature - Station 4e0022000251353337353037",
+    "name": "SoilTemperature-4e0022000251353337353037",
     "description": "Datastream for recording soil temperature",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -104,7 +104,7 @@
     }
   },
   {
-    "name": "Soil Moisture - Station 4e0022000251353337353037",
+    "name": "SoilMoisture-4e0022000251353337353037",
     "description": "Datastream for recording soil moisture",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -119,7 +119,7 @@
     }
   },
   {
-    "name": "Battery - Station 4e0022000251353337353037",
+    "name": "Battery-4e0022000251353337353037",
     "description": "Datastream for recording battery status",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -129,141 +129,6 @@
     },
     "Thing": {"@iot.id":1},
     "ObservedProperty": {"@iot.id":9},
-    "Sensor": {
-      "@iot.id": 6
-    }
-  },
-  {
-    "name": "Air Temperature - Station 270043001951343334363036",
-    "description": "Datastream for recording air temperature",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "Degree Celsius",
-      "symbol": "°C",
-      "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
-    },
-    "Thing": {"@iot.id":2},
-    "ObservedProperty": {},
-    "Sensor": {
-      "@iot.id": 1
-    }
-  },
-  {
-    "name": "Humidity - Station 270043001951343334363036",
-    "description": "Datastream for recording air humidity",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "Percent",
-      "symbol": "%",
-      "definition": "https://en.wikipedia.org/wiki/Relative_humidity"
-    },
-    "Thing": {},
-    "ObservedProperty": {},
-    "Sensor": {
-      "@iot.id": 1
-    }
-  },
-  {
-    "name": "Atmospheric Pressure - Station 270043001951343334363036",
-    "description": "Datastream for recording atmospheric pressure",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "Pascal",
-      "symbol": "Pa",
-      "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
-    },
-    "Thing": {},
-    "ObservedProperty": {},
-    "Sensor": {
-      "@iot.id": 1
-    }
-  },
-  {
-    "name": "Precipitation - Station 270043001951343334363036",
-    "description": "Datastream for recording rainfall",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "Millimetres",
-      "symbol": "mm",
-      "definition": "https://en.wikipedia.org/wiki/Millimetre"
-    },
-    "Thing": {},
-    "ObservedProperty": {},
-    "Sensor": {
-      "@iot.id": 5
-    }
-  },
-  {
-    "name": "Wind Direction - Station 270043001951343334363036",
-    "description": "Datastream for recording wind direction",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "",
-      "symbol": "",
-      "definition": "https://en.wikipedia.org/wiki/Wind_direction"
-    },
-    "Thing": {},
-    "ObservedProperty": {},
-    "Sensor": {
-      "@iot.id": 2
-    }
-  },
-  {
-    "name": "Wind Speed - Station 270043001951343334363036",
-    "description": "Datastream for recording wind speed",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "Metres per second",
-      "symbol": "m/s",
-      "definition": "https://en.wikipedia.org/wiki/Metre_per_second"
-    },
-    "Thing": {},
-    "ObservedProperty": {},
-    "Sensor": {
-      "@iot.id": 2
-    }
-  },
-  {
-    "name": "Soil Moisture - Station 270043001951343334363036",
-    "description": "Datastream for recording soil moisture",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "Cubic metres water per cubic metre soil",
-      "symbol": "m^3/m^3",
-      "definition": "https://en.wikipedia.org/wiki/Cubic_metre"
-    },
-    "Thing": {},
-    "ObservedProperty": {},
-    "Sensor": {
-      "@iot.id": 3
-    }
-  },
-  {
-    "name": "Soil Temperature - Station 270043001951343334363036",
-    "description": "Datastream for recording soil temperature",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "Degree Celsius",
-      "symbol": "°C",
-      "definition": "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#DegreeCelsius"
-    },
-    "Thing": {},
-    "ObservedProperty": {},
-    "Sensor": {
-      "@iot.id": 4
-    }
-  },
-  {
-    "name": "Battery - Station 270043001951343334363036",
-    "description": "Datastream for recording battery status",
-    "observationType": "http://www.senviro.uji.es/",
-    "unitOfMeasurement": {
-      "name": "Percent",
-      "symbol": "%",
-      "definition": "https://en.wikipedia.org/wiki/Percentage"
-    },
-    "Thing": {},
-    "ObservedProperty": {},
     "Sensor": {
       "@iot.id": 6
     }

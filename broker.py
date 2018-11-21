@@ -2,6 +2,7 @@ import pika
 import requests
 import json
 import sys
+import ast
 
 # FROST-Server baseUrl
 baseUrl = "http://elcano.init.uji.es:8082/FROST-Server/v1.0"
@@ -33,35 +34,42 @@ for binding_key in binding_keys:
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
-# def thingHandler():
-#     things = requests.get(baseUrl + '/' + 'Things').json()
-#
-#
-# def obsPropHandler(messagePropString):
-#     obsProp = requests.get(baseUrl + '/' + 'ObservedProperties').json()
-#     props = []
-#     for prop in obsProp['value']:
-#         props.append(prop['name'])
-#
-#     if messagePropString not in props:
-#         try:
-#             req = requests.post(baseUrl + '/' + 'ObservedProperties', json = {"name": messagePropString, "description": "", "definition": ""})
-#             req.raise_for_status()
-#             print(req, "####", messagePropString, " inserted")
-#         except:
-#             print(req, "####", "Could not insert ", messagePropString)
+def insertObservation(nodeID, phenomenon, body):
+    # Select name and id of present things to locate the correct thing of the observation
+    url = baseUrl + '/' + 'Datastreams'
+    dataStreams = requests.get(url + '?$select=name,id').json()
 
+    # print(dataStreams)
+
+    for stream in dataStreams['value']:
+        if stream['name'] == phenomenon+'-'+nodeID:
+            sendingDatastreamID = stream['@iot.id']
+
+    print(sendingDatastreamID)
+
+    postObs = {"resultTime" :  body['time'].replace(" ","T"),"result" : float(body['value'])}
+
+    try:
+        req = requests.post(url + '(' + str(sendingDatastreamID) + ')' + '/' + 'Observations', json = postObs)
+        req.raise_for_status()
+        print(req, "####", phenomenon, " observation for station " + nodeID + " inserted")
+    except:
+        print(req, "####", "Could not insert observation" )
+
+x = {"time":"2018-11-21 14:45:34","value":"21.962227"}
+
+# insertObservation('4e0022000251353337353037', 'AirTemperature', x)
 
 def callback(ch, method, properties, body):
 
-    rest, thingName, obsPropName = str(method.routing_key).rsplit('.', 2)
-
-    # obsPropHandler(obsPropName)
+    thingName = str(method.routing_key).split('.')[2]
+    obsPropName = str(method.routing_key).split('.')[3]
 
     print(" [x] %r:%r" % (method.routing_key, body))
-    print("thingName: ", thingName)
-    print("obsPropName: ", obsPropName)
 
+    msg = ast.literal_eval(body.decode('utf-8'))
+
+    insertObservation(thingName, obsPropName, msg)
 #
 #     # add this for Senviro for message acknowledgement
 #     # def callback(ch, method, properties, body):

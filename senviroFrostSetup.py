@@ -9,16 +9,13 @@ with open('sensors.json') as json_data:
 with open('observedProperties.json') as json_data:
     obsPropData = json.load(json_data)
 
-print(obsPropData)
-print(sensorData)
-
 # FROST-Server baseUrl
 baseUrl = "http://elcano.init.uji.es:8082/FROST-Server/v1.0"
 
 def insertSensor(dataArray):
     url = baseUrl + '/' + 'Sensors'
     # Create array with present sensors
-    sensors = requests.get(url).json()
+    sensors = requests.get(url+ '?$select=name').json()
     presentSensors = []
     for sen in sensors['value']:
         presentSensors.append(sen['name'])
@@ -50,7 +47,7 @@ def insertSensor(dataArray):
 def insertObsProp(dataArray):
     # Create array with present observed properties
     url = baseUrl + '/' + 'ObservedProperties'
-    obsProp = requests.get(url).json()
+    obsProp = requests.get(url + '?$select=name').json()
     presentProps = []
     for prop in obsProp['value']:
         presentProps.append(prop['name'])

@@ -1,5 +1,5 @@
 [{
-    "name": "Air Temperature - Station 4e0022000251353337353037",
+    "name": "AirTemperature-4e0022000251353337353037",
     "description": "Datastream for recording air temperature",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -18,7 +18,7 @@
     }
   },
   {
-    "name": "Humidity - Station 4e0022000251353337353037",
+    "name": "Humidity-4e0022000251353337353037",
     "description": "Datastream for recording air humidity",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -37,7 +37,7 @@
     }
   },
   {
-    "name": "Atmospheric Pressure - Station 4e0022000251353337353037",
+    "name": "AtmosphericPressure-4e0022000251353337353037",
     "description": "Datastream for recording atmospheric pressure",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -56,7 +56,7 @@
     }
   },
   {
-    "name": "Precipitation - Station 4e0022000251353337353037",
+    "name": "Precipitation-4e0022000251353337353037",
     "description": "Datastream for recording rainfall",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -75,7 +75,7 @@
     }
   },
   {
-    "name": "Wind Direction - Station 4e0022000251353337353037",
+    "name": "WindDirection-4e0022000251353337353037",
     "description": "Datastream for recording wind direction",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -94,7 +94,7 @@
     }
   },
   {
-    "name": "Wind Speed - Station 4e0022000251353337353037",
+    "name": "WindSpeed-4e0022000251353337353037",
     "description": "Datastream for recording wind speed",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -113,7 +113,7 @@
     }
   },
   {
-    "name": "Soil Temperature - Station 4e0022000251353337353037",
+    "name": "SoilTemperature-4e0022000251353337353037",
     "description": "Datastream for recording soil temperature",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -132,7 +132,7 @@
     }
   },
   {
-    "name": "Soil Moisture - Station 4e0022000251353337353037",
+    "name": "SoilMoisture-4e0022000251353337353037",
     "description": "Datastream for recording soil moisture",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {
@@ -151,7 +151,7 @@
     }
   },
   {
-    "name": "Battery - Station 4e0022000251353337353037",
+    "name": "Battery-4e0022000251353337353037",
     "description": "Datastream for recording battery status",
     "observationType": "http://www.senviro.uji.es/",
     "unitOfMeasurement": {

@@ -48,7 +48,7 @@ def insertThing(dataArray):
 def insertDatastream(dataArray):
     # Create array with present observed properties
     url = baseUrl + '/' + 'Datastreams'
-    datastreams = requests.get(url).json()
+    datastreams = requests.get(url+ '?$select=name').json()
     presentStreams = []
     for stream in datastreams['value']:
         presentStreams.append(stream['name'])
@@ -64,4 +64,5 @@ def insertDatastream(dataArray):
                 print(req, "####", "Could not insert ", i["name"] )
 
 
+insertThing(thingsData)
 insertDatastream(dataStreamsData)
