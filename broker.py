@@ -40,6 +40,7 @@ def insertObservation(nodeID, phenomenon, body):
     dataStreams = requests.get(url + '?$select=name,id').json()
 
     # print(dataStreams)
+    sendingDatastreamID = None
 
     for stream in dataStreams['value']:
         if stream['name'] == phenomenon+'-'+nodeID:
