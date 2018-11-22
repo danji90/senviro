@@ -3,6 +3,7 @@ import requests
 import json
 import sys
 import ast
+import datetime
 
 # FROST-Server baseUrl
 baseUrl = "http://elcano.init.uji.es:8082/FROST-Server/v1.0"
@@ -57,7 +58,7 @@ def insertObservation(nodeID, phenomenon, body):
     try:
         req = requests.post(url + '(' + str(sendingDatastreamID) + ')' + '/' + 'Observations', json = postObs)
         req.raise_for_status()
-        print(req, "####", phenomenon, " observation for station " + nodeID + " inserted")
+        print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.datetime.now().isoformat()))
     except:
         print(req, "####", "Could not insert observation" )
 
