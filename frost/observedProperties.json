@@ -1,35 +1,35 @@
 [{
   "name": "AirTemperature",
   "description": "The degree or intensity of heat present in the area",
-  "definition": "http://www.qudt.org/qudt/owl/1.0.0/quantity/Instances.html#AreaTemperature"
+  "definition": "http://dbpedia.org/page/Temperature"
 }, {
   "name": "Humidity",
   "description": "Ratio of the partial pressure of water vapor to the equilibrium vapor pressure of water at a given temperature",
-  "definition": "https://en.wikipedia.org/wiki/Relative_humidity"
+  "definition": "http://dbpedia.org/page/Relative_humidity"
 }, {
   "name": "AtmosphericPressure",
   "description": "Pressure within the atmosphere of Earth",
-  "definition": "https://en.wikipedia.org/wiki/Atmospheric_pressure"
+  "definition": "http://dbpedia.org/page/Atmospheric_pressure"
 }, {
   "name": "Precipitation",
   "description": "Product of the condensation of atmospheric water vapor that falls under gravity",
-  "definition": "https://en.wikipedia.org/wiki/Precipitation"
+  "definition": "http://dbpedia.org/page/Precipitation"
 }, {
   "name": "WindDirection",
   "description": "Wind direction in integer values (0-7)",
-  "definition": "https://en.wikipedia.org/wiki/Wind_speed"
+  "definition": "http://dbpedia.org/page/Wind_direction"
 }, {
   "name": "WindSpeed",
   "description": "Wind speed readings in m/s",
-  "definition": "https://en.wikipedia.org/wiki/Wind_speed"
+  "definition": "http://dbpedia.org/page/Wind_speed"
 }, {
   "name": "SoilTemperature",
   "description": "Soil temperature readings in °C",
-  "definition": "https://en.wikipedia.org/wiki/Soil#Temperature"
+  "definition": "http://www2.vernier.com/sample_labs/AWV-10-COMP-soil_temperature.pdf"
 }, {
   "name": "SoilHumidity",
   "description": "Soil moisture readings in m^3/m^3",
-  "definition": "https://en.wikipedia.org/wiki/Soil#Soil_moisture_content"
+  "definition": "http://dbpedia.org/page/Water_content"
 }, {
   "name": "Battery",
   "description": "Battery readings in %",

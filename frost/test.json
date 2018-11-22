@@ -1,4 +1,4 @@
-[{
+{
     "name": "AirTemperature-270043001951343334363036",
     "description": "Datastream for recording air temperature",
     "observationType": "http://www.senviro.uji.es/",
@@ -52,7 +52,7 @@
       "@iot.id": 3
     },
     "Sensor": {
-      "@iot.id": 1
+      "@iot.id": 5
     }
   },
   {
@@ -71,7 +71,7 @@
       "@iot.id": 4
     },
     "Sensor": {
-      "@iot.id": 5
+      "@iot.id": 2
     }
   },
   {
@@ -169,4 +169,3 @@
       "@iot.id": 6
     }
   }
-]

@@ -1,13 +1,13 @@
 [{
-  "name": "PhotonWeatherShield",
-  "description": "SparkFun Photon Weather Shield, easy to use add-on board that grants you access to barometric pressure, relative humidity, and temperature",
+  "name": "Si7021-A20",
+  "description": "Monolithic  CMOS  IC integrating   humidity   and   temperature   sensor   elements, an   analog-to-digital converter, signal processing, calibration data, and an I2C Interface",
   "encodingType": "application/pdf",
-  "metadata": "https://www.sparkfun.com/products/13630"
+  "metadata": "https://www.silabs.com/documents/public/data-sheets/Si7021-A20.pdf"
 }, {
-  "name": "Anemometer",
-  "description": "Measures wind speed and direction",
+  "name": "WeatherSensorAssembly80422",
+  "description": "This kit includes a wind vane, cup anemometer and a rain gauge",
   "encodingType": "application/pdf",
-  "metadata": "https://en.wikipedia.org/wiki/Anemometer"
+  "metadata": "https://cdn.sparkfun.com/assets/8/4/c/d/6/Weather_Sensor_Assembly_Updated.pdf"
 }, {
   "name": "SoilMoistureSensor",
   "description": "Measures soil moisture",
@@ -19,13 +19,13 @@
   "encodingType": "application/pdf",
   "metadata": "https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf"
 }, {
-  "name": "Pluviometer",
-  "description": "Measures rainfall",
+  "name": "MPL3115A2",
+  "description": "MEMS pressure sensor with an I2C interface to provide accurate Pressure/Altitude and Temperature data",
   "encodingType": "application/pdf",
-  "metadata": "https://en.wikipedia.org/wiki/Rain_gauge"
+  "metadata": "https://cdn.sparkfun.com/datasheets/Sensors/Pressure/MPL3115A2.pdf"
 }, {
   "name": "Battery",
-  "description": "Measures soil temperature",
+  "description": "Battery percentage readings",
   "encodingType": "application/pdf",
   "metadata": "https://en.wikipedia.org/wiki/Electric_battery"
 }]

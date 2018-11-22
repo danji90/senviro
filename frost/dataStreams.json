@@ -52,7 +52,7 @@
       "@iot.id": 3
     },
     "Sensor": {
-      "@iot.id": 1
+      "@iot.id": 5
     }
   },
   {
@@ -71,7 +71,7 @@
       "@iot.id": 4
     },
     "Sensor": {
-      "@iot.id": 5
+      "@iot.id": 2
     }
   },
   {
@@ -223,7 +223,7 @@
       "@iot.id": 3
     },
     "Sensor": {
-      "@iot.id": 1
+      "@iot.id": 5
     }
   },
   {
@@ -242,7 +242,7 @@
       "@iot.id": 4
     },
     "Sensor": {
-      "@iot.id": 5
+      "@iot.id": 2
     }
   },
   {
