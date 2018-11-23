@@ -9,10 +9,10 @@
   "encodingType": "application/pdf",
   "metadata": "https://cdn.sparkfun.com/assets/8/4/c/d/6/Weather_Sensor_Assembly_Updated.pdf"
 }, {
-  "name": "SoilMoistureSensor",
+  "name": "SparkfunSoilMoistureSensor",
   "description": "Measures soil moisture",
   "encodingType": "application/pdf",
-  "metadata": "https://en.wikipedia.org/wiki/Soil_moisture_sensor"
+  "metadata": "https://www.sparkfun.com/products/13322"
 }, {
   "name": "DS18B20",
   "description": "Measures soil temperature",

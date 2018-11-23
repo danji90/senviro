@@ -31,18 +31,6 @@ def insertSensor(dataArray):
             except:
                 print(req, "####", "Could not insert ", i["name"] )
 
-    # While loop attempt (still gives list index out of range error, but works)
-    # i = 0
-    # while (dataArray[i]["name"] not in sens) and (i < len(dataArray)):
-    #     print(i)
-    #     print(dataArray[i])
-    #     try:
-    #         req = requests.post(url, json = dataArray[i])
-    #         req.raise_for_status()
-    #         print(req, "#### Sensor: ", dataArray[i]["name"], " inserted")
-    #     except:
-    #         print(req, "####", "Could not insert ", dataArray[i]["name"] )
-    #     i += 1
 
 def insertObsProp(dataArray):
     # Create array with present observed properties
