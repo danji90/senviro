@@ -3,13 +3,10 @@ import requests
 import json
 import sys
 import ast
-import datetime
+from datetime import datetime
 
 # FROST-Server baseUrl
 baseUrl = "http://elcano.init.uji.es:8082/FROST-Server/v1.0"
-
-# SensorThings API classes
-staClass = ["Datastreams", "MultiDatastreams", "FeaturesOfInterest", "HistoricalLocations", "Locations", "Observations", "ObservedProperties", "Sensors", "Things"]
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='senviro.init.uji.es', credentials=pika.credentials.PlainCredentials(username='senvmq', password='senviro.2018')))
 channel = connection.channel()
@@ -51,16 +48,20 @@ def insertObservation(nodeID, phenomenon, body):
         if stream['name'] == phenomenon+'-'+nodeID:
             sendingDatastreamID = stream['@iot.id']
 
-    # Create observation object to post
-    postObs = {"resultTime" :  body['time'].replace(" ","T"),"result" : float(body['value'])}
 
-    # Post object to datastreams(id)/observations
+    date = datetime.strptime(str(body['time']), '%Y-%m-%d %H:%M:%S')
+
+    # Create observation object to post
+    postObs = {"resultTime" :  str(date.isoformat()) ,"result" : float(body['value'])}
+    print(postObs)
+
+    # Post object to url/datastreams(id)/observations
     try:
         req = requests.post(url + '(' + str(sendingDatastreamID) + ')' + '/' + 'Observations', json = postObs)
         req.raise_for_status()
-        print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.datetime.now().isoformat()))
+        print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.now().isoformat()))
     except:
-        print(req, "####", "Could not insert observation" )
+        print(req, "####", "Could not insert observation at " + str(datetime.now().isoformat()))
 
 
 def callback(ch, method, properties, body):
