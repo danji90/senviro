@@ -12,7 +12,7 @@
   "name": "SparkfunSoilMoistureSensor",
   "description": "Measures soil moisture",
   "encodingType": "application/pdf",
-  "metadata": "https://www.sparkfun.com/products/13322"
+  "metadata": "https://learn.sparkfun.com/tutorials/soil-moisture-sensor-hookup-guide?_ga=2.211555218.647199625.1542892941-2070536822.1535634550"
 }, {
   "name": "DS18B20",
   "description": "Measures soil temperature",
