@@ -11,7 +11,7 @@ baseUrl = "http://elcano.init.uji.es:8082/FROST-Server/v1.0"
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='senviro.init.uji.es', credentials=pika.credentials.PlainCredentials(username='senvmq', password='senviro.2018')))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='amq.topic',    # amq.topic
+channel.exchange_declare(exchange='amq.topic',
                          exchange_type='topic',
                          durable=True)
 
@@ -32,7 +32,7 @@ for binding_key in binding_keys:
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
-def insertObservation(nodeID, phenomenon, body):
+def insertObservation(ch, method, nodeID, phenomenon, body):
 
     # Datastreams base url
     url = baseUrl + '/' + 'Datastreams'
@@ -63,10 +63,12 @@ def insertObservation(nodeID, phenomenon, body):
     except:
         print(req, "####", "Could not insert observation at " + str(datetime.now().isoformat()))
 
+    # Message acknowledgement
+    ch.basic_ack(delivery_tag = method.delivery_tag)
 
 def callback(ch, method, properties, body):
 
-    # Estract thing unique name and observable property from message routing key
+    # Extract thing unique name and observable property from message routing key
     thingName = str(method.routing_key).split('.')[2]
     obsPropName = str(method.routing_key).split('.')[3]
 
@@ -74,17 +76,8 @@ def callback(ch, method, properties, body):
     msg = ast.literal_eval(body.decode('utf-8'))
 
     # Call insertObservation function, posts observations to frost db
-    insertObservation(thingName, obsPropName, msg)
-#
-#     # add this for Senviro for message acknowledgement
-#     # def callback(ch, method, properties, body):
-#     # print " [x] Received %r" % (body,)
-#     # time.sleep( body.count('.') )
-#     # print " [x] Done"
-#     # ch.basic_ack(delivery_tag = method.delivery_tag)
-#
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)                  #   delete no_ack or set to false in senviro
+    insertObservation(ch, method, thingName, obsPropName, msg)
+
+channel.basic_consume(callback, queue=queue_name)
 
 channel.start_consuming()
