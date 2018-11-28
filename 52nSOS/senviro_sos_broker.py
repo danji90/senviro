@@ -6,7 +6,7 @@ import ast
 from datetime import datetime
 
 # FROST-Server baseUrl
-baseUrl = "http://elcano.init.uji.es:8082/FROST-Server/v1.0"
+baseUrl = "http://elcano.init.uji.es:8084/52n-sos-webapp/service"
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='senviro.init.uji.es', credentials=pika.credentials.PlainCredentials(username='senvmq', password='senviro.2018')))
 channel = connection.channel()
