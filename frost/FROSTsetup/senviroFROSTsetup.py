@@ -3,7 +3,7 @@ import json
 import sys
 
 # Data
-with open('sensors.json') as json_data:
+with open('sensorsFROST.json') as json_data:
     sensorData = json.load(json_data)
 
 with open('observedProperties.json') as json_data:

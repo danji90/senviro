@@ -17,12 +17,12 @@
           </sml:identifier>
           <sml:identifier name=\"longName\">
             <sml:Term definition=\"urn:ogc:def:identifier:OGC:1.0:longName\">
-              <sml:value>GEOTEC_UniversitatJaumeI</sml:value>
+              <sml:value>270043001951343334363036</sml:value>
             </sml:Term>
           </sml:identifier>
           <sml:identifier name=\"shortName\">
             <sml:Term definition=\"urn:ogc:def:identifier:OGC:1.0:shortName\">
-              <sml:value>GEOTEC</sml:value>
+              <sml:value>270043001951343334363036</sml:value>
             </sml:Term>
           </sml:identifier>
         </sml:IdentifierList>
@@ -71,31 +71,31 @@
       <sml:outputs>
         <sml:OutputList>
           <sml:output name=\"AirTemperature\">
-            <swe:Category definition=\"AirTemperature\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/AirTemperature\"/></swe:Category>
+            <swe:Category definition=\"AirTemperature\"><swe:codeSpace xlink:href=\"AirTemperature\"/></swe:Category>
           </sml:output>
           <sml:output name=\"Humidity\">
-            <swe:Category definition=\"Humidity\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/Humidity\"/></swe:Category>
+            <swe:Category definition=\"Humidity\"><swe:codeSpace xlink:href=\"Humidity\"/></swe:Category>
           </sml:output>
           <sml:output name=\"AtmosphericPressure\">
-            <swe:Category definition=\"AtmosphericPressure\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/AtmosphericPressure\"/></swe:Category>
+            <swe:Category definition=\"AtmosphericPressure\"><swe:codeSpace xlink:href=\"AtmosphericPressure\"/></swe:Category>
           </sml:output>
           <sml:output name=\"Precipitation\">
-            <swe:Category definition=\"Precipitation\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/Precipitation\"/></swe:Category>
+            <swe:Category definition=\"Precipitation\"><swe:codeSpace xlink:href=\"Precipitation\"/></swe:Category>
           </sml:output>
           <sml:output name=\"WindDirection\">
-            <swe:Category definition=\"WindDirection\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/WindDirection\"/></swe:Category>
+            <swe:Category definition=\"WindDirection\"><swe:codeSpace xlink:href=\"WindDirection\"/></swe:Category>
           </sml:output>
           <sml:output name=\"WindSpeed\">
-            <swe:Category definition=\"WindSpeed\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/WindSpeed\"/></swe:Category>
+            <swe:Category definition=\"WindSpeed\"><swe:codeSpace xlink:href=\"WindSpeed\"/></swe:Category>
           </sml:output>
           <sml:output name=\"SoilTemperature\">
-            <swe:Category definition=\"SoilTemperature\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/SoilTemperature\"/></swe:Category>
+            <swe:Category definition=\"SoilTemperature\"><swe:codeSpace xlink:href=\"SoilTemperature\"/></swe:Category>
           </sml:output>
           <sml:output name=\"SoilHumidity\">
-            <swe:Category definition=\"SoilHumidity\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/SoilHumidity\"/></swe:Category>
+            <swe:Category definition=\"SoilHumidity\"><swe:codeSpace xlink:href=\"SoilHumidity\"/></swe:Category>
           </sml:output>
           <sml:output name=\"Battery\">
-            <swe:Category definition=\"Battery\"><swe:codeSpace xlink:href=\"http://elcano.init.uji.es:8084/52n-sos-webapp/service/observableProperty/Battery\"/></swe:Category>
+            <swe:Category definition=\"Battery\"><swe:codeSpace xlink:href=\"Battery\"/></swe:Category>
           </sml:output>
         </sml:OutputList>
       </sml:outputs>

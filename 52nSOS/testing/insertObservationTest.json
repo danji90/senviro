@@ -1,0 +1,49 @@
+{
+  "request": "InsertObservation",
+  "service": "SOS",
+  "version": "2.0.0",
+  "offering": "offering4e0022000251353337353037",
+  "observation": {
+    "identifier": {
+      "value": "",
+      "codespace": ""
+    },
+    "type": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+    "procedure": "4e0022000251353337353037",
+    "observedProperty": "AirTemperature",
+    "featureOfInterest": {
+      "identifier": {
+        "value": "featureOfInterest4e0022000251353337353037",
+        "codespace": ""
+      },
+      "name": [
+        {
+          "value": "4e0022000251353337353037",
+          "codespace": ""
+        }
+      ],
+      "sampledFeature": [
+        ""
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.935101100104916,
+          7.651968812254194
+        ],
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        }
+      }
+    },
+    "phenomenonTime": "2012-11-19T17:45:15+00:00",
+    "resultTime": "2012-11-19T17:45:15+00:00",
+    "result": {
+      "uom": "°C",
+      "value": 0.28
+    }
+  }
+}

@@ -8,6 +8,14 @@ from datetime import datetime
 # FROST-Server baseUrl
 baseUrl = "http://elcano.init.uji.es:8084/52n-sos-webapp/service"
 
+with open('thingsSOS.json') as json_data:
+    things = json.load(json_data)
+
+with open('insertObservation.json') as json_data:
+    observationTemplate = json.load(json_data)
+
+uoms = {"AirTemperature":"°C","Humidity":"%","AtmosphericPressure":"Pa","Precipitation":"mm","WindDirection":"","WindSpeed":"m/s","SoilTemperature":"°C","SoilHumidity":"m^3/m^3","Battery":"%"}
+
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='senviro.init.uji.es', credentials=pika.credentials.PlainCredentials(username='senvmq', password='senviro.2018')))
 channel = connection.channel()
 
@@ -34,34 +42,38 @@ print(' [*] Waiting for logs. To exit press CTRL+C')
 
 def insertObservation(nodeID, phenomenon, body):
 
-    # Datastreams base url
-    url = baseUrl + '/' + 'Datastreams'
+    # Create timestamp from message
+    timestamp = str(datetime.strptime(str(body['time']), '%Y-%m-%d %H:%M:%S').isoformat())+"+00:00"
 
-    # Load name and id of present datastreams
-    dataStreams = requests.get(url + '?$select=name,id').json()
-
-    # Empty variable for holding the target datastream id
-    sendingDatastreamID = None
-
-    # Get correct datastream id using the routing key parameters of the message, save it in variable
-    for stream in dataStreams['value']:
-        if stream['name'] == phenomenon+'-'+nodeID:
-            sendingDatastreamID = stream['@iot.id']
-
-
-    date = datetime.strptime(str(body['time']), '%Y-%m-%d %H:%M:%S')
+    # select correct thing from stations
+    coordinates = list(filter(lambda x: x["id"] == str(nodeID), things))
 
     # Create observation object to post
-    postObs = {"resultTime" :  str(date.isoformat()) ,"result" : float(body['value'])}
-    print(postObs)
+    postObs = observationTemplate
+    postObs["offering"] = "offering"+str(nodeID)
+    postObs["observation"]["procedure"] = str(nodeID)
+    postObs["observation"]["observedProperty"] = phenomenon
+    postObs["observation"]["featureOfInterest"]["identifier"]["value"] = "featureOfInterest"+str(nodeID)
+    postObs["observation"]["featureOfInterest"]["name"][0]["value"] = str(nodeID)
+    postObs["observation"]["featureOfInterest"]["geometry"]["coordinates"] = coordinates[0]["location"]
+    postObs["observation"]["phenomenonTime"] = timestamp
+    postObs["observation"]["resultTime"] = timestamp
+    postObs["observation"]["result"]["uom"] = uoms[str(phenomenon)]
+    postObs["observation"]["result"]["value"] = float(body["value"])
 
     # Post object to url/datastreams(id)/observations
     try:
-        req = requests.post(url + '(' + str(sendingDatastreamID) + ')' + '/' + 'Observations', json = postObs)
+        req = requests.post(baseUrl, json = postObs)
         req.raise_for_status()
         print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.now().isoformat()))
     except:
         print(req, "####", "Could not insert observation at " + str(datetime.now().isoformat()))
+
+# thingId = things[0]["id"]
+# obsPropName = "AirTemperature"
+# msg = {"time":"2018-11-30 16:53:43","value":"84.621094"}
+
+# insertObservation(thingId, obsPropName, msg)
 
 def callback(ch, method, properties, body):
 
