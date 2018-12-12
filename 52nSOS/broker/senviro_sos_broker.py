@@ -61,7 +61,7 @@ def insertObservation(nodeID, phenomenon, body):
     postObs["observation"]["result"]["uom"] = uoms[str(phenomenon)]
     postObs["observation"]["result"]["value"] = float(body["value"])
 
-    # Post object to url/datastreams(id)/observations
+    # Post object to service url
     try:
         req = requests.post(baseUrl, json = postObs)
         req.raise_for_status()
