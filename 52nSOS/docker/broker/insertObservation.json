@@ -1,0 +1,46 @@
+{
+  "request": "InsertObservation",
+  "service": "SOS",
+  "version": "2.0.0",
+  "offering": "",
+  "observation": {
+    "identifier": {
+      "value": "",
+      "codespace": ""
+    },
+    "type": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+    "procedure": "",
+    "observedProperty": "",
+    "featureOfInterest": {
+      "identifier": {
+        "value": "",
+        "codespace": ""
+      },
+      "name": [
+        {
+          "value": "",
+          "codespace": ""
+        }
+      ],
+      "sampledFeature": [
+        ""
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [],
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        }
+      }
+    },
+    "phenomenonTime": "2012-11-19T17:45:15+00:00",
+    "resultTime": "2012-11-19T17:45:15+00:00",
+    "result": {
+      "uom": "",
+      "value": 0.28
+    }
+  }
+}

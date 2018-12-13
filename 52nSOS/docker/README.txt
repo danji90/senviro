@@ -1,0 +1,1 @@
+This folder needs to replaced the 2n-sensorweb-sos-4.4.2/src/docker folder, it launches the broker, which connects to SEnviro rabbit mq and posts to the sos db
