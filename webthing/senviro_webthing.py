@@ -1,20 +1,21 @@
 from asyncio import sleep, CancelledError, get_event_loop
 from webthing import (Action, Event, MultipleThings, Property, Thing, Value,
                       WebThingServer)
+# from multiprocessing import Process
 import logging
 import random
 import time
 import uuid
+import threading
 import sys
+import pika
+import requests
+import json
+import ast
+from datetime import datetime
 
+### WebThing setup
 # Actions
-class tempShiftEvent(Event):
-
-    def __init__(self, thing, data, input_):
-        Event.__init__(self, thing, 'tempChange', data=data)
-        self.thing.set_property('AirTemperature', self.input['AirTemperature'])
-
-
 class tempShiftAction(Action):
 
     def __init__(self, thing, input_):
@@ -87,8 +88,7 @@ class batteryShiftAction(Action):
     def perform_action(self):
         self.thing.set_property('Battery', self.input['Battery'])
 
-# Things classes
-### TempHumidity sensor class
+# Things
 class senviroNode(Thing):
 
     def __init__(self, name, latlon):
@@ -115,10 +115,11 @@ class senviroNode(Thing):
                          'readOnly': True
                      }))
 
+        self.AirTemperature = Value(0.0)
         self.add_property(
             Property(self,
                      'AirTemperature',
-                     Value(0, lambda v: print('Air temperature is now', v)),
+                     self.AirTemperature,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'AirTemperature',
@@ -127,10 +128,11 @@ class senviroNode(Thing):
                          'unit': 'degree celsius'
                      }))
 
+        self.Humidity = Value(0.0)
         self.add_property(
             Property(self,
                      'Humidity',
-                     Value(0, lambda v: print('Air humidity is now', v)),
+                     self.Humidity,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'Humidity',
@@ -141,10 +143,11 @@ class senviroNode(Thing):
                          'unit': 'percent'
                      }))
 
+        self.AtmosphericPressure = Value(0.0)
         self.add_property(
             Property(self,
                      'AtmosphericPressure',
-                     Value(0, lambda v: print('Pressure is now', v)),
+                     self.AtmosphericPressure,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'AtmosphericPressure',
@@ -153,10 +156,11 @@ class senviroNode(Thing):
                          'unit': 'pascal'
                      }))
 
+        self.Precipitation = Value(0.0)
         self.add_property(
             Property(self,
                      'Precipitation',
-                     Value(0, lambda v: print('Precipitation is now', v)),
+                     self.Precipitation,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'Precipitation',
@@ -165,22 +169,24 @@ class senviroNode(Thing):
                          'unit': 'millimeters'
                      }))
 
+        self.WindDirection = Value(0.0)
         self.add_property(
             Property(self,
                      'WindDirection',
-                     Value(0, lambda v: print('Wind direction is now', v)),
+                     self.WindDirection,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'WindDirection',
-                         'type': 'integer',
+                         'type': 'number',
                          'description': 'Wind direction in integer values (0-7)',
                          'unit': 'null'
                      }))
 
+        self.WindSpeed = Value(0.0)
         self.add_property(
             Property(self,
                      'WindSpeed',
-                     Value(0, lambda v: print('Wind speed is now', v)),
+                     self.WindSpeed,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'WindSpeed',
@@ -189,10 +195,11 @@ class senviroNode(Thing):
                          'unit': 'meters per second'
                      }))
 
+        self.SoilTemperature = Value(0.0)
         self.add_property(
             Property(self,
                      'SoilTemperature',
-                     Value(0, lambda v: print('Soil temperature is now', v)),
+                     self.SoilTemperature,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'SoilTemperature',
@@ -201,10 +208,11 @@ class senviroNode(Thing):
                          'unit': 'degrees celsius'
                      }))
 
+        self.SoilHumidity = Value(0.0)
         self.add_property(
             Property(self,
                      'SoilHumidity',
-                     Value(0, lambda v: print('Soil humidity is now', v)),
+                     self.SoilHumidity,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'SoilHumidity',
@@ -213,10 +221,11 @@ class senviroNode(Thing):
                          'unit': 'm^3/m^3'
                      }))
 
+        self.Battery = Value(0.0)
         self.add_property(
             Property(self,
                      'Battery',
-                     Value(0, lambda v: print('Battery percentage is now', v)),
+                     self.Battery,
                      metadata={
                          '@type': 'LevelProperty',
                          'label': 'Battery',
@@ -225,234 +234,81 @@ class senviroNode(Thing):
                          'unit': 'percent'
                      }))
 
-        self.add_available_action(
-            'tempShift',
-            {
-                'label': 'tempShift',
-                'description': 'Temperature change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'AirTemperature'
-                    ],
-                    'properties': {
-                        'AirTemperature': {
-                            'type': 'number',
-                            'unit': 'degrees Celsius',
-                        },
-                    },
-                },
-            },
-            tempShiftAction)
+node270043001951343334363036 = senviroNode("270043001951343334363036", [40.141384,-0.026397])
+node4e0022000251353337353037 = senviroNode("4e0022000251353337353037", [40.133098,-0.061])
 
-        self.add_available_action(
-            'humShift',
-            {
-                'label': 'humShift',
-                'description': 'Humidity change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'Humidity'
-                    ],
-                    'properties': {
-                        'Humidity': {
-                            'type': 'number',
-                            'unit': 'percent',
-                        },
-                    },
-                },
-            },
-            humShiftAction)
+### Rabbitmq configuration
+def rabbitReceiver():
 
-        self.add_available_action(
-            'pressureShift',
-            {
-                'label': 'humShift',
-                'description': 'Atmospheric Pressure change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'AtmosphericPressure'
-                    ],
-                    'properties': {
-                        'AtmosphericPressure': {
-                            'type': 'number',
-                            'unit': 'pascal',
-                        },
-                    },
-                },
-            },
-            pressureShiftAction)
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='senviro.init.uji.es', credentials=pika.credentials.PlainCredentials(username='senvmq', password='senviro.2018')))
+    channel = connection.channel()
+    channel.exchange_declare(exchange='amq.topic',
+                             exchange_type='topic',
+                             durable=True)
 
-        self.add_available_action(
-            'precShift',
-            {
-                'label': 'humShift',
-                'description': 'Precipitation change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'Precipitation'
-                    ],
-                    'properties': {
-                        'Precipitation': {
-                            'type': 'number',
-                            'unit': 'millimeters',
-                        },
-                    },
-                },
-            },
-            precShiftAction)
+    result = channel.queue_declare(exclusive=True)
+    queue_name = result.method.queue
 
-        self.add_available_action(
-            'windDirShift',
-            {
-                'label': 'humShift',
-                'description': 'Wind direction change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'WindDirection'
-                    ],
-                    'properties': {
-                        'WindDirection': {
-                            'type': 'intger',
-                            'unit': 'null',
-                        },
-                    },
-                },
-            },
-            windDirShiftAction)
+    binding_keys = ['#']
+    channel.queue_bind(exchange='amq.topic',
+                           queue=queue_name,
+                           routing_key=str(binding_keys[0]))
 
-        self.add_available_action(
-            'windSpeedShift',
-            {
-                'label': 'windSpeedShift',
-                'description': 'Wind speed change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'WindSpeed'
-                    ],
-                    'properties': {
-                        'WindSpeed': {
-                            'type': 'number',
-                            'unit': 'meters per second',
-                        },
-                    },
-                },
-            },
-            windSpeedShiftAction)
+    print("Waiting for messages...")
 
-        self.add_available_action(
-            'soilTempShift',
-            {
-                'label': 'soilTempShift',
-                'description': 'Soil temperature change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'SoilTemperature'
-                    ],
-                    'properties': {
-                        'SoilTemperature': {
-                            'type': 'number',
-                            'unit': 'degrees celsius',
-                        },
-                    },
-                },
-            },
-            soilTempShiftAction)
+    def callback(ch, method, properties, body):
 
-        self.add_available_action(
-            'soilHumShift',
-            {
-                'label': 'soilHumShift',
-                'description': 'Soil humidity change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'SoilHumidity'
-                    ],
-                    'properties': {
-                        'SoilHumidity': {
-                            'type': 'number',
-                            'unit': 'percent',
-                        },
-                    },
-                },
-            },
-            soilHumShiftAction)
+        # Decode byte message, throw error if decodification fails
+        try:
+            msg = ast.literal_eval(body.decode('utf-8'))
+        except:
+            print("Error: Message decodification failed, corrupted byte message (time: " + str(datetime.now().isoformat()) + ")")
 
-        self.add_available_action(
-            'batteryShift',
-            {
-                'label': 'batteryShift',
-                'description': 'Battery percentage change',
-                'input': {
-                    'type': 'object',
-                    'required': [
-                        'Battery'
-                    ],
-                    'properties': {
-                        'Battery': {
-                            'type': 'number',
-                            'unit': 'percent',
-                        },
-                    },
-                },
-            },
-            batteryShiftAction)
+        thingName = str(method.routing_key).split('.')[2]
+        obsPropName = str(method.routing_key).split('.')[3]
 
-        self.add_available_event(
-            'tempChange',
-            {
-                'description':
-                'The lamp has exceeded its safe operating temperature',
-                'type': 'number',
-                'unit': 'degree celsius',
-                })
+        node = globals()['node'+thingName]
 
-# def createNode(nodeId, latLon):
-#     node = senviroNode()
-#     node.name = nodeId
-#     node.href = "/"+nodeId
-#     node.type = latLon
-#     return node
+        try:
+            node.set_property(obsPropName, float(msg['value']))
+            print("inserted: ", thingName, obsPropName, float(msg['value']))
+        except:
+            print("Could not insert ", obsPropName, " values for ", thingName,)
 
 
+        ch.basic_ack(delivery_tag = method.delivery_tag)
+
+        # return updateMsg(dummy)
+
+    channel.basic_consume(callback, queue=queue_name)
+
+    channel.start_consuming()
+
+mq_recieve_thread = threading.Thread(target=rabbitReceiver)
 
 def run_server():
-    # Create a thing that represents a dimmable light
 
-    node270043001951343334363036 = senviroNode("270043001951343334363036", [40.141384,-0.026397])
-    node4e0022000251353337353037 = senviroNode("4e0022000251353337353037", [40.133098,-0.061])
-
-    node270043001951343334363036.add_event(tempShiftEvent(node270043001951343334363036, {"time":"11/11/2018 13:12.34", "value":1234}, 1234))
-
-    # Create a thing that represents a humidity sensor
-    # sensor = FakeGpioHumiditySensor()
-    # print(node270043001951343334363036.href)
-    # If adding more than one thing, use MultipleThings() with a name.
-    # In the single thing case, the thing's name will be broadcast.
     server = WebThingServer(MultipleThings([node270043001951343334363036, node4e0022000251353337353037],
                                            'senviroWeb'),
                             port=8889)
+
+    # node270043001951343334363036.set_property('Precipitation', 12.7)
+    mq_recieve_thread.start()
+
     try:
-        logging.info('starting the server')
+        print('starting the server')
         server.start()
     except KeyboardInterrupt:
         logging.debug('canceling the sensor update looping task')
-        # sensor.cancel_update_level_task()
-        logging.info('stopping the server')
+        # node270043001951343334363036.cancel_update_level_task()
+        print('stopping the server')
         server.stop()
-        logging.info('done')
+        print('done')
 
-if __name__ == '__main__':
-    logging.basicConfig(
-        level=10,
-        format="%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s"
-    )
+# if __name__ == '__main__':
+#     logging.basicConfig(
+#         level=10,
+#         format="%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s"
+#     )
 
 run_server()
