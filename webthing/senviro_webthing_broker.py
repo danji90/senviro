@@ -247,7 +247,7 @@ def run_server():
 
     server = WebThingServer(MultipleThings([node270043001951343334363036, node4e0022000251353337353037],
                                            'senviroWeb'),
-                            port=8889)
+                            port=5000)
 
     # node270043001951343334363036.set_property('Precipitation', 12.7)
     mq_recieve_thread.start()

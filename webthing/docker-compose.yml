@@ -1,0 +1,15 @@
+version: '3'
+services:
+  webthingbroker:
+    build: .
+    image: senviro_webthing_broker
+    container_name: senviro_webthing_broker
+    restart: always
+  gateway:
+    image: mozillaiot/gateway
+    ports:
+      - 8090:8080
+    depends_on:
+      - webthingbroker
+    container_name: senviro_webthing_gateway
+    restart: always
