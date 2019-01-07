@@ -1,3 +1,80 @@
+# Classes
+
+class tempShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'tempShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('AirTemperature', self.input['AirTemperature'])
+
+class humShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'humShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('Humidity', self.input['Humidity'])
+
+class pressureShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'pressureShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('AtmosphericPressure', self.input['AtmosphericPressure'])
+
+class precShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'precShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('Precipitation', self.input['Precipitation'])
+
+class windDirShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'windDirShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('WindDirection', self.input['WindDirection'])
+
+class windSpeedShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'windSpeedShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('WindSpeed', self.input['WindSpeed'])
+
+class soilTempShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'soilTempShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('SoilTemperature', self.input['SoilTemperature'])
+
+class soilHumShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'soilHumShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('SoilHumidity', self.input['SoilHumidity'])
+
+class batteryShiftAction(Action):
+
+    def __init__(self, thing, input_):
+        Action.__init__(self, uuid.uuid4().hex, thing, 'batteryShift', input_=input_)
+
+    def perform_action(self):
+        self.thing.set_property('Battery', self.input['Battery'])
+
+
+# Available actions
+
 self.add_available_action(
     'tempShift',
     {
@@ -151,7 +228,7 @@ self.add_available_action(
             'properties': {
                 'SoilHumidity': {
                     'type': 'number',
-                    'unit': 'percent',
+                    'unit': 'percent'
                 },
             },
         },
@@ -171,7 +248,7 @@ self.add_available_action(
             'properties': {
                 'Battery': {
                     'type': 'number',
-                    'unit': 'percent',
+                    'unit': 'percent'
                 },
             },
         },

@@ -16,77 +16,14 @@ from datetime import datetime
 
 ### WebThing setup
 # Actions
-class tempShiftAction(Action):
+
+class updateLocation(Action):
 
     def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'tempShift', input_=input_)
+        Action.__init__(self, uuid.uuid4().hex, thing, 'updateCoords', input_=input_)
 
     def perform_action(self):
-        self.thing.set_property('AirTemperature', self.input['AirTemperature'])
-
-class humShiftAction(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'humShift', input_=input_)
-
-    def perform_action(self):
-        self.thing.set_property('Humidity', self.input['Humidity'])
-
-class pressureShiftAction(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'pressureShift', input_=input_)
-
-    def perform_action(self):
-        self.thing.set_property('AtmosphericPressure', self.input['AtmosphericPressure'])
-
-class precShiftAction(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'precShift', input_=input_)
-
-    def perform_action(self):
-        self.thing.set_property('Precipitation', self.input['Precipitation'])
-
-class windDirShiftAction(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'windDirShift', input_=input_)
-
-    def perform_action(self):
-        self.thing.set_property('WindDirection', self.input['WindDirection'])
-
-class windSpeedShiftAction(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'windSpeedShift', input_=input_)
-
-    def perform_action(self):
-        self.thing.set_property('WindSpeed', self.input['WindSpeed'])
-
-class soilTempShiftAction(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'soilTempShift', input_=input_)
-
-    def perform_action(self):
-        self.thing.set_property('SoilTemperature', self.input['SoilTemperature'])
-
-class soilHumShiftAction(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'soilHumShift', input_=input_)
-
-    def perform_action(self):
-        self.thing.set_property('SoilHumidity', self.input['SoilHumidity'])
-
-class batteryShiftAction(Action):
-
-    def __init__(self, thing, input_):
-        Action.__init__(self, uuid.uuid4().hex, thing, 'batteryShift', input_=input_)
-
-    def perform_action(self):
-        self.thing.set_property('Battery', self.input['Battery'])
+        self.thing.set_property('Coordinates', self.input['Coordinates'])
 
 # Things
 class senviroNode(Thing):
@@ -111,8 +48,8 @@ class senviroNode(Thing):
                          'label': 'Coordinates',
                          'type': 'array',
                          'description': 'Latitude and longitude coordinates of the station',
-                         'unit': 'degree',
-                         'readOnly': True
+                         'unit': 'degree'
+                         #'readOnly': True
                      }))
 
         self.AirTemperature = Value(0.0)
@@ -234,8 +171,28 @@ class senviroNode(Thing):
                          'unit': 'percent'
                      }))
 
-node270043001951343334363036 = senviroNode("270043001951343334363036", [40.141384,-0.026397])
-node4e0022000251353337353037 = senviroNode("4e0022000251353337353037", [40.133098,-0.061])
+        self.add_available_action(
+            'updateCoords',
+            {
+                'label': 'updateCoords',
+                'description': 'Update station coordinates',
+                'input': {
+                    'type': 'object',
+                    'required': [
+                        'Coordinates'
+                    ],
+                    'properties': {
+                        'Coordinates': {
+                            'type': 'array',
+                            'unit': 'degree'
+                        },
+                    },
+                },
+            },
+            updateLocation)
+
+node270043001951343334363036 = senviroNode("270043001951343334363036", [40.133098,-0.061000])
+node4e0022000251353337353037 = senviroNode("4e0022000251353337353037", [39.993934,-0.073863])
 
 ### Rabbitmq configuration
 def rabbitReceiver():
