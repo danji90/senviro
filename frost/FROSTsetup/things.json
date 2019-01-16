@@ -1,7 +1,7 @@
 [
   {
-    "name": "4e0022000251353337353037",
-    "description": "Senviro monitoring station with ID: 4e0022000251353337353037",
+    "name": "270043001951343334363036",
+    "description": "Senviro monitoring station with ID: 270043001951343334363036",
     "properties": {},
     "Locations": [{
       "name": "vilafames_1",
@@ -9,13 +9,13 @@
       "encodingType": "application/vnd.geo+json",
       "location": {
         "type": "Point",
-        "coordinates": [-0.073863, 39.993934]
+        "coordinates": [-0.061000, 40.133098]
       }
     }]
   },
   {
-    "name": "270043001951343334363036",
-    "description": "Senviro monitoring station with ID: 270043001951343334363036",
+    "name": "4e0022000251353337353037",
+    "description": "Senviro monitoring station with ID: 4e0022000251353337353037",
     "properties": {},
     "Locations": [{
       "name": "espaitec2_1",
@@ -23,7 +23,7 @@
       "encodingType": "application/vnd.geo+json",
       "location": {
         "type": "Point",
-        "coordinates": [-0.061000, 40.133098]
+        "coordinates": [-0.073863, 39.993934]
       }
     }]
   }
