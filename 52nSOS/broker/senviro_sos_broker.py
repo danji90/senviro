@@ -63,14 +63,14 @@ def insertObservation(nodeID, phenomenon, body):
     postObs["observation"]["result"]["value"] = float(body["value"])
 
     # Post object to service url
-    # try:
-    #     req = requests.post(baseUrl, json = postObs)
-    #     req.raise_for_status()
-    #
-    #     print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.now().isoformat()))
-    # except:
-    #     print(req, "####", "Could not insert observation at " + str(datetime.now().isoformat()))
-    print(postObs)
+    try:
+        req = requests.post(baseUrl, json = postObs)
+        req.raise_for_status()
+
+        print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.now().isoformat()))
+    except:
+        print(req, "####", "Could not insert observation at " + str(datetime.now().isoformat()))
+
 def callback(ch, method, properties, body):
 
     # Extract thing unique name and observable property from message routing key
