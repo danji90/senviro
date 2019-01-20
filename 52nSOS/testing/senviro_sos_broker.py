@@ -5,7 +5,7 @@ import sys
 import ast
 from datetime import datetime
 
-# FROST-Server baseUrl
+# SOS baseUrl
 baseUrl = "http://elcano.init.uji.es:8084/52n-sos-webapp/service"
 
 with open('thingsSOS.json') as json_data:
@@ -61,19 +61,13 @@ def insertObservation(nodeID, phenomenon, body):
     postObs["observation"]["result"]["uom"] = uoms[str(phenomenon)]
     postObs["observation"]["result"]["value"] = float(body["value"])
 
-    # Post object to url/datastreams(id)/observations
+    # Post object to service url
     try:
         req = requests.post(baseUrl, json = postObs)
         req.raise_for_status()
         print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.now().isoformat()))
     except:
         print(req, "####", "Could not insert observation at " + str(datetime.now().isoformat()))
-
-# thingId = things[0]["id"]
-# obsPropName = "AirTemperature"
-# msg = {"time":"2018-11-30 16:53:43","value":"84.621094"}
-
-# insertObservation(thingId, obsPropName, msg)
 
 def callback(ch, method, properties, body):
 
@@ -87,7 +81,7 @@ def callback(ch, method, properties, body):
     except:
         print("Error: Message decodification failed, corrupted byte message (time: " + str(datetime.now().isoformat()) + ")")
 
-    # Call insertObservation function, posts observations to frost db
+    # Call insertObservation function, posts observations to sos db
     insertObservation(thingName, obsPropName, msg)
 
     # Message acknowledgement

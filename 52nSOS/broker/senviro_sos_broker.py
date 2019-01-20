@@ -6,7 +6,7 @@ import ast
 from datetime import datetime
 
 # SOS baseUrl
-baseUrl = "http://elcano.init.uji.es:8084/52n-sos-webapp/service"
+baseUrl = "http://sos:8080/52n-sos-webapp/service"
 
 with open('thingsSOS.json') as json_data:
     things = json.load(json_data)
@@ -55,6 +55,7 @@ def insertObservation(nodeID, phenomenon, body):
     postObs["observation"]["observedProperty"] = phenomenon
     postObs["observation"]["featureOfInterest"]["identifier"]["value"] = "featureOfInterest"+str(nodeID)
     postObs["observation"]["featureOfInterest"]["name"][0]["value"] = str(nodeID)
+    postObs["observation"]["featureOfInterest"]["sampledFeature"] = ["parent"+str(nodeID)]                  # SampledFeature important for core operations
     postObs["observation"]["featureOfInterest"]["geometry"]["coordinates"] = coordinates[0]["location"]
     postObs["observation"]["phenomenonTime"] = timestamp
     postObs["observation"]["resultTime"] = timestamp
@@ -62,13 +63,14 @@ def insertObservation(nodeID, phenomenon, body):
     postObs["observation"]["result"]["value"] = float(body["value"])
 
     # Post object to service url
-    try:
-        req = requests.post(baseUrl, json = postObs)
-        req.raise_for_status()
-        print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.now().isoformat()))
-    except:
-        print(req, "####", "Could not insert observation at " + str(datetime.now().isoformat()))
-
+    # try:
+    #     req = requests.post(baseUrl, json = postObs)
+    #     req.raise_for_status()
+    #
+    #     print(req, "####", phenomenon, " observation for station " + nodeID + " inserted at " + str(datetime.now().isoformat()))
+    # except:
+    #     print(req, "####", "Could not insert observation at " + str(datetime.now().isoformat()))
+    print(postObs)
 def callback(ch, method, properties, body):
 
     # Extract thing unique name and observable property from message routing key
