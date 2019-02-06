@@ -1,22 +1,23 @@
 library(ggplot2)
 
 # General Data
-observations = c(rep(c(1,100,200,400,500,600,800,1000),4))
-webService = c(rep("52N-SOS",8), rep("52N-SOS Helgoland",8), rep("FROST",8), rep("FROST (compressed)",8))
+observations = c(1,100,200,400,500,600,800,1000)
+breakPointsExtre = c(1,100,200,300,400,500,600,700,800,900,1000)
+webServices = c(rep("52N-SOS",8), rep("FROST",8), rep("52N-SOS Helgoland",8),  rep("FROST (compressed)",8))
 
 # Response Times Data
 time_sos = c(260,161,168,201,236,203,280,324)
 time_helgoSOS = c(138,180,211,208,199,235,401,294)
 time_frost = c(185,251,238,285,336,436,381,410)
-time_frostMin = c()
+time_frostMin = c(169,150,189,204,228,253,280,272)
 
 timesPlain = c(time_sos,time_frost)
 timesMin = c(time_helgoSOS,time_frostMin)
 times = c(timesPlain,timesMin)
   
-respTimePlain = data.frame(webService,observations,timesPlain)
-respTimesMin = data.frame(webService,observations,timesMin)
-respTime = data.frame(webService,observations,times)
+respTimePlain = data.frame(ws=webServices[c(1:16)],obs=rep(observations,2),t=timesPlain)
+respTimesMin = data.frame(ws=webServices[c(17:32)],obs=rep(observations,2),t=timesMin)
+respTime = data.frame(ws=webServices,obs=rep(observations,4),t=times)
 
 
 
@@ -31,14 +32,46 @@ sizesPlain = c(size_sos,size_frost)
 sizesMin = c(size_helgoSOS,size_frostMin)
 sizes = c(sizesPlain,sizesMin)
 
-respSize = data.frame(webService,observations,sizes)
+respSizePlain = data.frame(ws=webServices[c(1:16)],obs=rep(observations,2),s=sizesPlain)
+respSizeMin = data.frame(ws=webServices[c(17:32)],obs=rep(observations,2),s=sizesMin)
+respSize = data.frame(ws=webServices,obs=observations,s=sizes)
 
 
 # Plots
 
 # Response Time
-ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/imagesrespTimePlot.png", ggplot(data=respTime,aes(x=observations, y=times, group=webService)) + geom_line(aes(linetype=webService)) + geom_point(aes(shape=webService)) + scale_x_continuous(breaks = obsCount) + labs(x='Observations', y='Milliseconds [ms]'), width = 8, height = 4, dpi = 300, units = "in", device='png')
+ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/respTimePlot.png", 
+       ggplot(data=respTime,aes(x=obs, y=t)) + 
+         ggtitle("Average HTTP response times for observation retrieval") +
+         geom_line(aes(linetype=ws)) + 
+         geom_point(aes(shape=ws)) + 
+         scale_x_continuous(breaks = observations) + 
+         scale_linetype_manual("Web Services", values = c(1:4)) +
+         scale_shape_manual("Web Services", values = c(15:18)) +
+         labs(x='Observations', y='Milliseconds [ms]') + 
+         guides(guide_legend()) + 
+         theme(plot.title = element_text(size = 15,hjust = 0.5),
+               legend.key = element_blank(), 
+               legend.position = "top", 
+               legend.title = element_blank(),
+               legend.box.just = "left"), 
+       width = 8, height = 5, dpi = 300, units = "in", device='png')
 
-ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/imagesrespSizePlot.png", ggplot(data=respSize,aes(x=observations, y=sizes, group=webService)) + geom_line(aes(linetype=webService)) + geom_point(aes(shape=webService)) + scale_x_continuous(breaks = obsCount) + labs(x='Observations', y='Kilobytes [kb]') , width = 8, height = 4, dpi = 300, units = "in", device='png')
+ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/respSizePlot.png", 
+       ggplot(data=respSize,aes(x=obs, y=s)) + 
+         ggtitle("Average HTTP response size for observation retrieval") +
+         geom_line(aes(linetype=ws)) + 
+         geom_point(aes(shape=ws)) + 
+         scale_x_continuous(breaks = observations) + 
+         scale_linetype_manual("Web Services", values = c(1:4)) +
+         scale_shape_manual("Web Services", values = c(15:18)) +
+         labs(x='Observations', y='Kilobytes [kb]') + 
+         guides(guide_legend()) + 
+         theme(plot.title = element_text(size = 15,hjust = 0.5),
+               legend.key = element_blank(), 
+               legend.position = "top", 
+               legend.title = element_blank(),
+               legend.box.just = "left"), 
+       width = 8, height = 5, dpi = 300, units = "in", device='png')
 
-resSizePlot
+  
