@@ -17,7 +17,7 @@ lapply(files, function(data) {
   
   disk = dplyr::filter(data, grepl('Disk', label))
   
-  new = data.frame(ID = seq.int(nrow(cpu)), cpu$timeStamp,cpu$elapsed/1000, memory$elapsed/100, network$elapsed/1000, disk$elapsed/1000)
+  new = data.frame(ID = seq.int(nrow(cpu)), cpu$timeStamp,cpu$elapsed/1000, memory$elapsed/1000, network$elapsed/1000, disk$elapsed/1000)
   new = cbind(rep(query, nrow(new)), new)
   # assign('final',final,envir=.GlobalEnv)
   final <<- rbind(final,new)
@@ -26,6 +26,8 @@ lapply(files, function(data) {
 colnames(final)=c("Query", "Timestep", "Time", "CPU", "Memory", "Network", "Disk")
 
 plot(final$Timestep,final$CPU, type="l")
+
+write.csv(final, file = "metrics.csv",row.names=FALSE, col.names=TRUE, sep=",")
 
 
 
