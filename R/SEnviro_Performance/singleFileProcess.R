@@ -1,6 +1,8 @@
+library(dplyr)
+
 final = data.frame(matrix(ncol = 7, nrow = 0))
 
-dataString = "./Raw/frost_100_.jmx"
+dataString = "./Raw/frost_1_.jmx"
 
 data = read.csv(dataString, header = TRUE)
 
@@ -22,4 +24,6 @@ final <<- rbind(final,new)
 colnames(final)=c("Query", "Timestep", "Time", "CPU", "Memory", "Network", "Disk")
 
 plot(final$Time,final$Disk, type="l")
+
+write.csv(final, file = "metrics.csv",row.names=FALSE, col.names=TRUE, sep=",")
 
