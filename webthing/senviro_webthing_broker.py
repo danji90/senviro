@@ -15,25 +15,22 @@ import ast
 from datetime import datetime
 
 ### WebThing setup
-# Actions
+# Define Action class
 
 class updateLocation(Action):
-
+    # Allows users to update a node's coordinates
     def __init__(self, thing, input_):
         Action.__init__(self, uuid.uuid4().hex, thing, 'updateCoords', input_=input_)
 
     def perform_action(self):
         self.thing.set_property('Coordinates', self.input['Coordinates'])
 
-# Things
+# Define class for things (nodes) with properties and available actions
 class senviroNode(Thing):
 
     def __init__(self, name, latlon):
-        # name = "SenviroNode"
         type = []
-        # description = "Monolithic CMOS IC integrating humidity and temperature sensor elements, an analog-to-digital converter, signal processing, calibration data, and an I2C Interface"
         description = "This monitoring station is an assemlby of sensors measuring environmental parameters in agricultural fields"
-        # coordinates = []
         Thing.__init__(self,
                        name,
                        type,
@@ -49,7 +46,6 @@ class senviroNode(Thing):
                          'type': 'array',
                          'description': 'Latitude and longitude coordinates of the station',
                          'unit': 'degree'
-                         #'readOnly': True
                      }))
 
         self.AirTemperature = Value(0.0)
@@ -191,6 +187,7 @@ class senviroNode(Thing):
             },
             updateLocation)
 
+# Create nodes for present stations, takes node ID and coordinates as arguments
 node270043001951343334363036 = senviroNode("270043001951343334363036", [40.133098,-0.061000])
 node4e0022000251353337353037 = senviroNode("4e0022000251353337353037", [39.993934,-0.073863])
 
@@ -241,18 +238,20 @@ def rabbitReceiver():
 
     channel.start_consuming()
 
+# Define RabbitMQ connection as simultaneous thread
 mq_recieve_thread = threading.Thread(target=rabbitReceiver)
 
 def run_server():
 
+    # Define webthing server, add the two predefined nodes
     server = WebThingServer(MultipleThings([node270043001951343334363036, node4e0022000251353337353037],
                                            'senviroWeb'),
                             port=5000)
-
-    # node270043001951343334363036.set_property('Precipitation', 12.7)
+    # Start RabbitMQ thread
     mq_recieve_thread.start()
 
     try:
+        # Start WebThing server
         print('starting the server')
         server.start()
     except KeyboardInterrupt:
@@ -262,10 +261,5 @@ def run_server():
         server.stop()
         print('done')
 
-# if __name__ == '__main__':
-#     logging.basicConfig(
-#         level=10,
-#         format="%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s"
-#     )
-
+# Run server
 run_server()
