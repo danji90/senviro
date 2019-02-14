@@ -15,7 +15,8 @@ scheduler.start()
 preCPU_total = 0.0
 preCPU_system = 0.0
 preMemory = 0.0
-preNetwork = 0.0
+preNetworkRX = 0.0
+preNetworkTX = 0.0
 # memoryLimit = 0.0
 
 def firstExtract():
@@ -23,20 +24,26 @@ def firstExtract():
     global preCPU_total
     global preCPU_system
     global preMemory
+    global preNetworkRX
+    global preNetworkTX
 
     print("Getting data at ", datetime.datetime.now())
     # resp = requests.get(frost_url).json()
-    resp = requests.get("http://elcano.init.uji.es:8087/api/v2.0/stats/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a?count=1").json()
+    resp = requests.get("http://elcano.init.uji.es:8087/api/v2.0/stats/docker/b3a38f225eb5d106064e7f051565527e5d21aea9c697af33bd9701903ac1c06e?count=1").json()
     new = []
 
-    stats = resp["/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a"][0]
+    stats = resp["/docker/b3a38f225eb5d106064e7f051565527e5d21aea9c697af33bd9701903ac1c06e"][0]
 
     cpuDelta = stats["cpu"]["usage"]["total"] - preCPU_total
     systemDelta = stats["cpu"]["usage"]["system"] - preCPU_system
+    # netWorkRXDelta = stats["network"]["interfaces"][0]["rx_bytes"]
+    # netWorkTXDelta = stats["network"]["interfaces"][0]["tx_bytes"]
+    netWorkRXDelta = preNetworkRX
+    netWorkTXDelta = preNetworkTX
     # memoryDelta = stats["memory"]["usage"] - preMemory
 
     if systemDelta > 0.0 and cpuDelta > 0.0:
-        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":stats["network"]["interfaces"][0]["rx_bytes"], "networkTX":stats["network"]["interfaces"][0]["tx_bytes"]}
+        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta}
         new.append(value)
 
         with open("metrics.csv", "w") as f:
@@ -49,27 +56,34 @@ def firstExtract():
     preCPU_total = stats["cpu"]["usage"]["total"]
     preCPU_system = stats["cpu"]["usage"]["system"]
     preMemory = stats["memory"]["usage"]
-
+    preNetworkRX = stats["network"]["interfaces"][0]["rx_bytes"]
+    preNetworkTX = stats["network"]["interfaces"][0]["tx_bytes"]
 
 def extractData():
 
     global preCPU_total
     global preCPU_system
     global preMemory
+    global preNetworkRX
+    global preNetworkTX
 
     print("Getting data at ", datetime.datetime.now())
     # resp = requests.get(frost_url).json()
-    resp = requests.get("http://elcano.init.uji.es:8087/api/v2.0/stats/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a?count=1").json()
+    resp = requests.get("http://elcano.init.uji.es:8087/api/v2.0/stats/docker/b3a38f225eb5d106064e7f051565527e5d21aea9c697af33bd9701903ac1c06e?count=1").json()
     new = []
 
-    stats = resp["/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a"][0]
+    stats = resp["/docker/b3a38f225eb5d106064e7f051565527e5d21aea9c697af33bd9701903ac1c06e"][0]
 
     cpuDelta = stats["cpu"]["usage"]["total"] - preCPU_total
     systemDelta = stats["cpu"]["usage"]["system"] - preCPU_system
+    # netWorkRXDelta = stats["network"]["interfaces"][0]["rx_bytes"]
+    # netWorkTXDelta = stats["network"]["interfaces"][0]["tx_bytes"]
+    netWorkRXDelta = stats["network"]["interfaces"][0]["rx_bytes"] - preNetworkRX
+    netWorkTXDelta = stats["network"]["interfaces"][0]["tx_bytes"] - preNetworkTX
     # memoryDelta = stats["memory"]["usage"] - preMemory
 
     if systemDelta > 0.0 and cpuDelta > 0.0:
-        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":stats["network"]["interfaces"][0]["rx_bytes"], "networkTX":stats["network"]["interfaces"][0]["tx_bytes"]}
+        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta}
         new.append(value)
 
         with open("metrics.csv", "a") as f:
@@ -81,6 +95,8 @@ def extractData():
     preCPU_total = stats["cpu"]["usage"]["total"]
     preCPU_system = stats["cpu"]["usage"]["system"]
     preMemory = stats["memory"]["usage"]
+    preNetworkRX = stats["network"]["interfaces"][0]["rx_bytes"]
+    preNetworkTX = stats["network"]["interfaces"][0]["tx_bytes"]
 
 def main():
     firstExtract()
