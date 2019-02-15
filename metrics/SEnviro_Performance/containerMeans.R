@@ -1,4 +1,4 @@
-filePath = "D:/Bulk/Uni/GitRepos/senviro/metrics/sos_1000_.csv"
+filePath = "D:/Bulk/Uni/GitRepos/senviro/metrics/frost_1000_.csv"
 
 dat = read.csv(filePath, header = TRUE)
 

@@ -3,7 +3,7 @@ library(ggplot2)
 # General Data
 observations = c(1,100,200,400,500,600,800,1000)
 breakPointsExtre = c(1,100,200,300,400,500,600,700,800,900,1000)
-webServices = c(rep("52N-SOS",8), rep("FROST",8), rep("52N-SOS Helgoland",8),  rep("FROST (compressed)",8))
+webServices = c(rep("52N-SOS",8), rep("FROST",8), rep("52N-SOS Helgoland",8),  rep("FROST (reduced)",8))
 
 # Response Times Data
 time_sos = c(260,161,168,201,236,203,280,324)
@@ -23,9 +23,9 @@ respTime = data.frame(ws=webServices,obs=rep(observations,4),t=times)
 
 
 # Response Size Data
-size_sos = c(0.566,2.54,4.38,8.1,454.23,545.02,726.61,908.19)
+size_sos = c(1.25,114,228,456,570,684,912,1110)
 size_helgoSOS = c(0.34,2.56,4.8,9.29,11.54,13.79,18.28,22.77)
-size_frost = c(0.717,49.9,99.42,198.39,247.87,297.37,396.34,495.31)
+size_frost = c(0.593,56,111,223,279,334,446,557 )
 size_frostMin = c(0.567,8.55,16.64,32.8,40.88,48.96,65.12,81.28)
 
 sizesPlain = c(size_sos,size_frost)
