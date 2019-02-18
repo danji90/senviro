@@ -1,7 +1,7 @@
 library(dplyr)
 library(anytime)
 
-dataString = "D:/Bulk/Uni/GitRepos/senviro/SEnviro_Performance/metrics/metrics.csv"
+dataString = "D:/Bulk/Uni/GitRepos/senviro/metrics/metrics.csv"
 
 data = read.csv(dataString, header = TRUE)
 

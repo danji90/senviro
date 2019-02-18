@@ -43,10 +43,10 @@ def firstExtract():
     # memoryDelta = stats["memory"]["usage"] - preMemory
 
     if systemDelta > 0.0 and cpuDelta > 0.0:
-        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta}
+        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta, "rxTotal":stats["network"]["interfaces"][0]["rx_bytes"],"txTotal":stats["network"]["interfaces"][0]["tx_bytes"]}
         new.append(value)
 
-        with open("metrics.csv", "w") as f:
+        with open("frostMetrics.csv", "w") as f:
             w = csv.DictWriter(f,new[0].keys())
             w.writeheader()
             w.writerows(new)
@@ -83,10 +83,10 @@ def extractData():
     # memoryDelta = stats["memory"]["usage"] - preMemory
 
     if systemDelta > 0.0 and cpuDelta > 0.0:
-        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta}
+        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta, "rxTotal":stats["network"]["interfaces"][0]["rx_bytes"],"txTotal":stats["network"]["interfaces"][0]["tx_bytes"]}
         new.append(value)
 
-        with open("metrics.csv", "a") as f:
+        with open("frostMetrics.csv", "a") as f:
             w = csv.DictWriter(f,new[0].keys())
             w.writerows(new)
 

@@ -12,6 +12,9 @@ cpu_frost = c(4.42405,12.06288,14.84101,17.00324,18.8907,20.97674,20.90836,22.31
 memory_sos = c(1.082397,1.082858,1.08334,1.083943,1.084413,1.084832,1.085033,1.085737) * 100
 memory_frost = c(1.430068,1.430388,1.428887,1.421462,1.410519,1.384987,1.369538,1.377593143) * 100
 
+memoryByte_sos = c(2260507700,2261470183,2262476718,2263735826,2264717735,2265593432,2265593432,2267484057)/1000000
+memoryByte_frost = c(2986593771,2987261611,2984127257,2968620007,2945767912,2892444577,2860180430,2876885009)/1000000
+
 rx_sos = c(55563.44,85758.64,63562.53,85239.97,81603.42,80062.66,86035.41,55624.07)
 rx_frost = c(39765.89,293878.8,385053.8,471310.5,502368.8,573014.3,550962.8,593142)
 
@@ -20,11 +23,13 @@ tx_frost = c(55297.28,1030404,1384252,1714001,1832846,2092936,2027332,2178644)
 
 cpu = c(cpu_sos,cpu_frost)
 memory = c(memory_sos,memory_frost)
+memoryByte = c(memoryByte_sos,memoryByte_frost)
 rx = c(rx_sos,rx_frost)
 tx = c(tx_sos,tx_frost)
 
   
 cpuDF = data.frame(ws=webServices,obs=rep(observations,2),cpu)
+memoryByteDF = data.frame(ws=webServices,obs=rep(observations,2),memoryByte)
 memoryDF = data.frame(ws=webServices,obs=rep(observations,2),memory)
 rxDF = data.frame(ws=webServices,obs=rep(observations,2),rx)
 txDF = data.frame(ws=webServices,obs=rep(observations,2),tx)
@@ -32,9 +37,6 @@ networkDF = data.frame(ws=webServices,obs=rep(observations,2),rx, tx)
 
 
 
-# Plots
-
-# Response Time
 ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/cpu.png", 
        ggplot(data=cpuDF,aes(x=obs, y=cpu)) + 
          ggtitle("Average container CPU usage for observation retrieval") +
@@ -61,6 +63,23 @@ ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/memory.png",
          scale_linetype_manual("Web Services", values = c(1:4)) +
          scale_shape_manual("Web Services", values = c(15:18)) +
          labs(x='Observations', y='Memory Usage [%]') + 
+         guides(guide_legend()) + 
+         theme(plot.title = element_text(size = 15,hjust = 0.5),
+               legend.key = element_blank(), 
+               legend.position = "top", 
+               legend.title = element_blank(),
+               legend.box.just = "left"), 
+       width = 8, height = 5, dpi = 300, units = "in", device='png')
+
+ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/memoryByte.png", 
+       ggplot(data=memoryByteDF,aes(x=obs, y=memoryByte)) + 
+         ggtitle("Average container memory usage for observation retrieval") +
+         geom_line(aes(linetype=ws)) + 
+         geom_point(aes(shape=ws)) + 
+         scale_x_continuous(breaks = observations) + 
+         scale_linetype_manual("Web Services", values = c(1:4)) +
+         scale_shape_manual("Web Services", values = c(15:18)) +
+         labs(x='Observations', y='Memory Usage [MB]') + 
          guides(guide_legend()) + 
          theme(plot.title = element_text(size = 15,hjust = 0.5),
                legend.key = element_blank(), 
