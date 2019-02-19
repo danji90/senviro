@@ -1,0 +1,16 @@
+{
+  "request": "GetObservation",
+  "service": "SOS",
+  "version": "2.0.0",
+  "procedure": "270043001951343334363036",
+  "observedProperty": "Battery",
+  "temporalFilter": {
+    "during": {
+      "ref": "om:phenomenonTime",
+      "value": [
+        "2018-12-26T13:40:28.000Z",
+        "2018-12-26T13:50:29.000Z"
+      ]
+    }
+  }
+}

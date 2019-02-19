@@ -1,9 +1,10 @@
 library(dplyr)
 library(anytime)
 
-dataString = "D:/Bulk/Uni/GitRepos/senviro/metrics/sosMetrics.csv"
+sosString = "D:/Bulk/Uni/GitRepos/senviro/metrics/sosMetrics.csv"
+frostString = "D:/Bulk/Uni/GitRepos/senviro/metrics/frostMetrics.csv"
 
-data = read.csv(dataString, header = TRUE)
+sosData = read.csv(dataString, header = TRUE)
 
 data$ID <- seq.int(nrow(data))
 time = as.POSIXlt(data$timestamp, "CET", "%Y-%m-%dT%H:%M:%S")

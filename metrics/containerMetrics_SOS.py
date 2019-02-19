@@ -5,101 +5,105 @@ import time
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 
-frost_url = "http://elcano.init.uji.es:8087/api/v1.0/containers/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a"
-
 refreshInterval = 1 #seconds
 
 scheduler = BackgroundScheduler()
 scheduler.start()
 
-preCPU_total = 0.0
-preCPU_system = 0.0
-preMemory = 0.0
+app_preCPU_total = 0.0
+app_preCPU_system = 0.0
+db_preCPU_total = 0.0
+db_preCPU_system = 0.0
+appCPU = 0.0
+dbCPU = 0.0
+cpuFinal = 0.0
+appPreMemory = 0.0
+dbPreMemory = 0.0
 preNetworkRX = 0.0
 preNetworkTX = 0.0
-# memoryLimit = 0.0
 
-def firstExtract():
-
-    global preCPU_total
-    global preCPU_system
-    global preMemory
-    global preNetworkRX
-    global preNetworkTX
-
-    print("Getting data at ", datetime.datetime.now())
-    # resp = requests.get(frost_url).json()
-    resp = requests.get("http://elcano.init.uji.es:8087/api/v2.0/stats/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a?count=1").json()
-    new = []
-
-    stats = resp["/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a"][0]
-
-    cpuDelta = stats["cpu"]["usage"]["total"] - preCPU_total
-    systemDelta = stats["cpu"]["usage"]["system"] - preCPU_system
-    # netWorkRXDelta = stats["network"]["interfaces"][0]["rx_bytes"]
-    # netWorkTXDelta = stats["network"]["interfaces"][0]["tx_bytes"]
-    netWorkRXDelta = preNetworkRX
-    netWorkTXDelta = preNetworkTX
-    # memoryDelta = stats["memory"]["usage"] - preMemory
-
-    if systemDelta > 0.0 and cpuDelta > 0.0:
-        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta, "rxTotal":stats["network"]["interfaces"][0]["rx_bytes"],"txTotal":stats["network"]["interfaces"][0]["tx_bytes"]}
-        new.append(value)
-
-        with open("sosMetrics.csv", "w") as f:
-            w = csv.DictWriter(f,new[0].keys())
-            w.writeheader()
-            w.writerows(new)
-
-    print(new)
-
-    preCPU_total = stats["cpu"]["usage"]["total"]
-    preCPU_system = stats["cpu"]["usage"]["system"]
-    preMemory = stats["memory"]["usage"]
-    preNetworkRX = stats["network"]["interfaces"][0]["rx_bytes"]
-    preNetworkTX = stats["network"]["interfaces"][0]["tx_bytes"]
 
 def extractData():
 
-    global preCPU_total
-    global preCPU_system
     global preMemory
     global preNetworkRX
     global preNetworkTX
+    global cpuFinal
+    global appMemory
+    global dbMemory
 
     print("Getting data at ", datetime.datetime.now())
     # resp = requests.get(frost_url).json()
-    resp = requests.get("http://elcano.init.uji.es:8087/api/v2.0/stats/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a?count=1").json()
+    appResp = requests.get("http://elcano.init.uji.es:8087/api/v2.0/stats/docker/b3a38f225eb5d106064e7f051565527e5d21aea9c697af33bd9701903ac1c06e?count=1").json()
+    dbResp = requests.get("http://elcano.init.uji.es:8087/api/v2.0/stats/docker/0f5d9725ef7e0672a6eed50db2fafc247f7080b0c3ed331727bfd976871feb72?count=1").json()
     new = []
 
-    stats = resp["/docker/770a8312ed0381458f375459e1ebe447866bd5677bbd8267f4acf5aa12655d2a"][0]
+    appStats = appResp["/docker/b3a38f225eb5d106064e7f051565527e5d21aea9c697af33bd9701903ac1c06e"][0]
+    dbStats = dbResp["/docker/0f5d9725ef7e0672a6eed50db2fafc247f7080b0c3ed331727bfd976871feb72"][0]
 
-    cpuDelta = stats["cpu"]["usage"]["total"] - preCPU_total
-    systemDelta = stats["cpu"]["usage"]["system"] - preCPU_system
-    # netWorkRXDelta = stats["network"]["interfaces"][0]["rx_bytes"]
-    # netWorkTXDelta = stats["network"]["interfaces"][0]["tx_bytes"]
-    netWorkRXDelta = stats["network"]["interfaces"][0]["rx_bytes"] - preNetworkRX
-    netWorkTXDelta = stats["network"]["interfaces"][0]["tx_bytes"] - preNetworkTX
-    # memoryDelta = stats["memory"]["usage"] - preMemory
+    def appCpuCalc(data):
 
-    if systemDelta > 0.0 and cpuDelta > 0.0:
-        value = {"timestamp":stats["timestamp"], "cpu_Percent":(cpuDelta / systemDelta),"memory":stats["memory"]["usage"], "memoryPercent":(stats["memory"]["usage"])/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta, "rxTotal":stats["network"]["interfaces"][0]["rx_bytes"],"txTotal":stats["network"]["interfaces"][0]["tx_bytes"]}
-        new.append(value)
+        global app_preCPU_total
+        global app_preCPU_system
+        global appCPU
 
-        with open("sosMetrics.csv", "a") as f:
-            w = csv.DictWriter(f,new[0].keys())
-            w.writerows(new)
+        cpuDelta = data["cpu"]["usage"]["total"] - app_preCPU_total
+        systemDelta = data["cpu"]["usage"]["system"] - app_preCPU_system
 
-    print(new)
+        if  systemDelta > 0.0:
+            appCPU = cpuDelta / systemDelta
 
-    preCPU_total = stats["cpu"]["usage"]["total"]
-    preCPU_system = stats["cpu"]["usage"]["system"]
-    preMemory = stats["memory"]["usage"]
-    preNetworkRX = stats["network"]["interfaces"][0]["rx_bytes"]
-    preNetworkTX = stats["network"]["interfaces"][0]["tx_bytes"]
+        app_preCPU_total = data["cpu"]["usage"]["total"]
+        app_preCPU_system = data["cpu"]["usage"]["system"]
+
+        return appCPU
+
+    def dbCpuCalc(data):
+
+        global db_preCPU_total
+        global db_preCPU_system
+        global dbCPU
+
+        cpuDelta = data["cpu"]["usage"]["total"] - db_preCPU_total
+        systemDelta = data["cpu"]["usage"]["system"] - db_preCPU_system
+
+        if  systemDelta > 0.0:
+            dbCPU = cpuDelta / systemDelta
+
+        db_preCPU_total = data["cpu"]["usage"]["total"]
+        db_preCPU_system = data["cpu"]["usage"]["system"]
+
+        return dbCPU
+
+    memoryFinal = appStats["memory"]["usage"] + dbStats["memory"]["usage"]
+
+
+    cpuFinal = appCpuCalc(appStats)+dbCpuCalc(dbStats)
+
+    netWorkRXDelta = appStats["network"]["interfaces"][0]["rx_bytes"] - preNetworkRX
+    netWorkTXDelta = appStats["network"]["interfaces"][0]["tx_bytes"] - preNetworkTX
+
+    value = {"timestamp":appStats["timestamp"], "cpu_Percent":cpuFinal,"memory":memoryFinal, "memoryPercent":memoryFinal/2088427847.68, "networkRX":netWorkRXDelta, "networkTX":netWorkTXDelta, "rxTotal":appStats["network"]["interfaces"][0]["rx_bytes"],"txTotal":appStats["network"]["interfaces"][0]["tx_bytes"]}
+    new.append(value)
+
+    with open("sosMetrics.csv", "a") as f:
+        w = csv.DictWriter(f,new[0].keys())
+        w.writerows(new)
+
+    print("App CPU: ", appCPU, "DB_CPU: ", dbCPU)
+    print("Value extracted")
+
+    # preCPU_total = appStats["cpu"]["usage"]["total"]
+    # preCPU_system = appStats["cpu"]["usage"]["system"]
+    preMemory = appStats["memory"]["usage"]
+    preNetworkRX = appStats["network"]["interfaces"][0]["rx_bytes"]
+    preNetworkTX = appStats["network"]["interfaces"][0]["tx_bytes"]
 
 def main():
-    firstExtract()
+    headers = ["timestamp","cpu_Percent","memory","memoryPercent","networkRX","networkTX","rxTotal","txTotal"]
+    with open("sosMetrics.csv", "w") as f:
+        w = csv.writer(f)
+        w.writerow(headers)
     scheduler.add_job(extractData, 'interval', seconds = refreshInterval)
     while True:
         time.sleep(1)
