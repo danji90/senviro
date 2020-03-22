@@ -52,6 +52,24 @@ ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/cpu1000contrast
                legend.box.just = "left"), 
        width = 8, height = 5, dpi = 300, units = "in", device='png')
 
+ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/cpu1000contrastTitle.png", 
+       ggplot(data=dfFinal,aes(x=ID, y=cpu_Percent)) + 
+         ggtitle("52North-SOS and FROST CPU usage in active state") +
+         ylim(0,100) +
+         geom_line(aes(linetype=service)) + 
+         # geom_point(aes(shape=service)) + 
+         # scale_x_continuous(breaks = observations) + 
+         scale_linetype_manual("Web Services", values = c("solid","twodash")) +
+         scale_shape_manual("Web Services", values = c(15:18)) +
+         labs(x='Seconds', y='CPU Usage [%]') + 
+         guides(guide_legend()) + 
+         theme(plot.title = element_text(size = 15,hjust = 0.5),
+               legend.key = element_blank(), 
+               legend.position = "top", 
+               legend.title = element_blank(),
+               legend.box.just = "left"), 
+       width = 10, height = 4, dpi = 300, units = "in", device='png')
+
 ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/memory1000contrast.png", 
        ggplot(data=dfFinal,aes(x=ID, y=memory/1000000)) + 
          ggtitle("Container memory usage requesting 1000 observations") +
@@ -69,6 +87,48 @@ ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/memory1000contr
                legend.title = element_blank(),
                legend.box.just = "left"), 
        width = 8, height = 5, dpi = 300, units = "in", device='png')
+
+ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/cpuFrostDiffTitle.png", 
+       ggplot(data=frostDfIdle,aes(x=ID, y=cpu_Percent)) + 
+         ggtitle("FROST CPU usage in idle and active state") +
+         ylim(0,100) + 
+         geom_line(aes(linetype=request)) + 
+         # geom_point(aes(shape=service)) + 
+         # scale_x_continuous(breaks = observations) + 
+         scale_linetype_manual("Web Services", values = c(1:4)) +
+         # scale_shape_manual("Web Services", values = c(15:18)) +
+         labs(x='Seconds', y='CPU Usage [%]') + 
+         guides(guide_legend()) + 
+         theme(plot.title = element_text(size = 15,hjust = 0.5),
+               legend.key = element_blank(), 
+               legend.position = "top", 
+               legend.title = element_blank(),
+               legend.box.just = "left",
+               axis.text=element_text(size=10),
+               axis.title=element_text(size=12),
+               legend.text=element_text(size=10)), 
+       width = 5.2, height = 4, dpi = 300, units = "in", device='png')
+
+ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/cpuSosDiffTitle.png", 
+       ggplot(data=sosDfIdle,aes(x=ID, y=cpu_Percent)) + 
+         ggtitle("52North-SOS CPU usage in idle and active state") +
+         ylim(0,100) + 
+         geom_line(aes(linetype=request)) + 
+         # geom_point(aes(shape=service)) + 
+         # scale_x_continuous(breaks = observations) + 
+         scale_linetype_manual("Web Services", values = c(1:4)) +
+         # scale_shape_manual("Web Services", values = c(15:18)) +
+         labs(x='Seconds', y='CPU Usage [%]') + 
+         guides(guide_legend()) + 
+         theme(plot.title = element_text(size = 15,hjust = 0.5),
+               legend.key = element_blank(), 
+               legend.position = "top", 
+               legend.title = element_blank(),
+               legend.box.just = "left",
+               axis.text=element_text(size=10),
+               axis.title=element_text(size=12),
+               legend.text=element_text(size=10)), 
+       width = 5.2, height = 4, dpi = 300, units = "in", device='png')
 
 ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/cpuFrostDiff.png", 
        ggplot(data=frostDfIdle,aes(x=ID, y=cpu_Percent)) + 
@@ -92,7 +152,6 @@ ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/cpuFrostDiff.pn
 
 ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/plots/cpuSosDiff.png", 
        ggplot(data=sosDfIdle,aes(x=ID, y=cpu_Percent)) + 
-         ggtitle("Average container memory usage for observation retrieval") +
          ylim(0,100) + 
          geom_line(aes(linetype=request)) + 
          # geom_point(aes(shape=service)) + 

@@ -57,6 +57,24 @@ ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/respTimePlot.png",
                legend.box.just = "left"), 
        width = 8, height = 5, dpi = 300, units = "in", device='png')
 
+# Response Time
+ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/respTimePlotPlain.png", 
+       ggplot(data=respTimePlain,aes(x=obs, y=t)) + 
+         ggtitle("Average HTTP response times for observation retrieval") +
+         geom_line(aes(linetype=ws)) + 
+         geom_point(aes(shape=ws)) + 
+         scale_x_continuous(breaks = observations) + 
+         scale_linetype_manual("Web Services", values = c(1:4)) +
+         scale_shape_manual("Web Services", values = c(15:18)) +
+         labs(x='Observations', y='Milliseconds [ms]') + 
+         guides(guide_legend()) + 
+         theme(plot.title = element_text(size = 15,hjust = 0.5),
+               legend.key = element_blank(), 
+               legend.position = "top", 
+               legend.title = element_blank(),
+               legend.box.just = "left"), 
+       width = 8, height = 5, dpi = 300, units = "in", device='png')
+
 ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/respSizePlot.png", 
        ggplot(data=respSize,aes(x=obs, y=s)) + 
          ggtitle("Average HTTP response size for observation retrieval") +
@@ -74,4 +92,22 @@ ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/respSizePlot.png",
                legend.box.just = "left"), 
        width = 8, height = 5, dpi = 300, units = "in", device='png')
 
+ggsave(filename = "D:/Bulk/Uni/UJI_2.0/MasterThesis/images/respSizePlotPlain.png", 
+       ggplot(data=respSizePlain,aes(x=obs, y=s)) + 
+         ggtitle("Average HTTP response size for observation retrieval") +
+         geom_line(aes(linetype=ws)) + 
+         geom_point(aes(shape=ws)) + 
+         scale_x_continuous(breaks = observations) + 
+         scale_linetype_manual("Web Services", values = c(1:4)) +
+         scale_shape_manual("Web Services", values = c(15:18)) +
+         labs(x='Observations', y='Kilobytes [kb]') + 
+         guides(guide_legend()) + 
+         theme(plot.title = element_text(size = 15,hjust = 0.5),
+               legend.key = element_blank(), 
+               legend.position = "top", 
+               legend.title = element_blank(),
+               legend.box.just = "left"), 
+       width = 8, height = 5, dpi = 300, units = "in", device='png')
+
   
+

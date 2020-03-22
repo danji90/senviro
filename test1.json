@@ -1,0 +1,27 @@
+{
+  "request": "GetObservation",
+  "service": "SOS",
+  "version": "2.0.0",
+  "procedure": "270043001951343334363036",
+  "offering": "offering270043001951343334363036",
+  "observedProperty": "AirTemperature",
+  "featureOfInterest": "featureOfInterest270043001951343334363036",
+  "spatialFilter": {
+    "bbox": {
+      "ref": "om:featureOfInterest/sams:SF_SpatialSamplingFeature/sams:shape",
+      "value": {
+        "type": "Polygon",
+        "coordinates": [[[50,7],[53,7],[53,10],[50,10],[50,7]]]
+      }
+    }
+  },
+  "temporalFilter": {
+    "during": {
+      "ref": "om:phenomenonTime",
+      "value": [
+        "2018-11-29T14:43:00+00:00",
+        "2018-12-13T15:32:12+00:00"
+      ]
+    }
+  }
+}
